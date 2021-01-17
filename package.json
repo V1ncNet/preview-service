@@ -16,6 +16,7 @@
     ],
     "ext": "ts, json",
     "ignore": [
+      "src/r/",
       "src/**/*.spec.ts"
     ],
     "exec": "ts-node ./src/index.ts"

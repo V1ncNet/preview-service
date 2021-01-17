@@ -1,3 +1,4 @@
+import path from 'path';
 import express, { Express } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -47,5 +48,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
     stack: err.stack || 'no stack defined'
   });
 });
+
+app.use('/r', express.static(path.join(__dirname, 'r')));
 
 export default app;
