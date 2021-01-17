@@ -1,4 +1,11 @@
 {
   "PORT": 8080,
-  "NODE_ENV": "development"
+  "NODE_ENV": "development",
+  "resources": {
+    "pdf": {
+      "viewer": {
+        "uri": "/r/pdfjs/build/minified/web/viewer.html"
+      }
+    }
+  }
 }
