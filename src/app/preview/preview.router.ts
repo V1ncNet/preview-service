@@ -28,7 +28,7 @@ router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
 
 function calcRelativePathOffset(path: string): string {
   if (!path.startsWith('/')) {
-    path = "/" + path;
+    path = '/' + path;
   }
 
   const count = countOccurrencesOf(path, 'g');
