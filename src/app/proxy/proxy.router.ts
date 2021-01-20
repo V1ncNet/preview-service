@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
 
@@ -23,7 +23,7 @@ function createProxyUrl(encodedUrl: string): string {
   return `${PROXY_ENDPOINT}/${encodedUrl}`;
 }
 
-router.get(PROXY_ENDPOINT + '/:url', (req, res) => {
+router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   const decoded = atob(req.params.url);
 
   forward(decoded, (data, status, headers) => {
