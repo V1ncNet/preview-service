@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from '../config.json';
-import { getFilesWithKeyword } from './utils/getFilesWithKeyword';
+import { getFilesWithKeyword } from './utils';
 
 const app: Express = express();
 
