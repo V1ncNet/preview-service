@@ -1,5 +1,5 @@
 import path from 'path';
-import express, { Express } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -41,7 +41,7 @@ getFilesWithKeyword('router', 'src/app').forEach((file: string) => {
  ***********************************************************************************/
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   return res.status(500).json({
     errorName: err.name,
     message: err.message,

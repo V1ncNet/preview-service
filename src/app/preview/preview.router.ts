@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { PREVIEW_ENDPOINT } from '../../constants/endpoint';
 import { proxy } from '../proxy/proxy.router';
 import config from '../../../config.json';
@@ -6,7 +6,7 @@ import { countOccurrencesOf, nCopies } from '../../utils';
 
 export const router: Router = Router();
 
-router.get(PREVIEW_ENDPOINT + '/pdf', (req, res) => {
+router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
 
   const url: string = String(req.query.url);
 
