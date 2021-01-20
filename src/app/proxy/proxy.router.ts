@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
+import { IncomingMessage, OutgoingHttpHeaders } from 'http';
 import { atob, btoa } from '../../utils';
 
 export const router: Router = Router();
@@ -14,11 +15,17 @@ function createProxyUrl(encodedUrl: string): string {
   return `${PROXY_ENDPOINT}/${encodedUrl}`;
 }
 
+interface HttpResponse {
+  data: any;
+  status: number;
+  headers: [string, string | string[] | undefined][];
+}
+
 router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   const decoded = atob(req.params.url);
 
-  forward(decoded, (data, status, headers) => {
-    res.type('blob');
+  forward(decoded, (httpResponse: HttpResponse) => {
+    const { data, status, headers } = httpResponse;
 
     headers.forEach(entry => {
       const { 0: key, 1: value } = entry;
@@ -27,16 +34,17 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
       }
     });
 
+    res.type('blob');
     res.status(status)
       .send(data);
   });
 });
 
-function forward(url: string, callback: (data: any, status: number, headers: [string, string | string[] | undefined][]) => void): void {
+function forward(url: string, callback: (httpResponse: HttpResponse) => void): void {
   const resource = new URL(url);
 
   const chunks: any[] = [];
-  https.get(resource, res => {
+  https.get(resource, (res: IncomingMessage) => {
     const { headers: incommingHeaders } = res;
     const headers = Object.entries(incommingHeaders);
 
@@ -45,9 +53,13 @@ function forward(url: string, callback: (data: any, status: number, headers: [st
     res.on('end', () => {
       const data = Buffer.concat(chunks);
 
-      callback(data, res.statusCode as number, headers);
+      callback({
+        data,
+        status: res.statusCode as number,
+        headers,
+      });
     });
-  }).on('error', error => {
+  }).on('error', (error: Error) => {
     throw error;
   }).end();
 }
