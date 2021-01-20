@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
-import { IncomingMessage, OutgoingHttpHeaders } from 'http';
+import http, { IncomingMessage, OutgoingHttpHeaders } from 'http';
 import { atob, btoa } from '../../utils';
 
 export const router: Router = Router();
@@ -44,7 +44,7 @@ function forward(url: string, callback: (httpResponse: HttpResponse) => void): v
   const resource = new URL(url);
 
   const chunks: any[] = [];
-  https.get(resource, (res: IncomingMessage) => {
+  (resource.protocol === 'http:' ? http : https).get(resource, (res: IncomingMessage) => {
     const { headers: incommingHeaders } = res;
     const headers = Object.entries(incommingHeaders);
 
