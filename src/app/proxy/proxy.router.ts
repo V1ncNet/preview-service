@@ -1,22 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
+import { atob, btoa } from '../../utils';
 
 export const router: Router = Router();
 
 export function proxy(url: string): string {
   const encoded = btoa(url);
   return createProxyUrl(encoded);
-}
-
-function atob(url: string) {
-  const buffer = Buffer.from(url, 'base64');
-  return buffer.toString('utf-8');
-}
-
-function btoa(url: string): string {
-  const buffer = Buffer.from(url, 'utf-8');
-  return buffer.toString('base64');
 }
 
 function createProxyUrl(encodedUrl: string): string {
