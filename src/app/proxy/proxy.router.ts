@@ -1,8 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
-import http, { IncomingMessage, OutgoingHttpHeaders } from 'http';
+import http, { IncomingMessage } from 'http';
 import { atob, btoa } from '../../utils';
+import config from '../../../config.json';
+import { ProxyAuthorizationService } from './auth/proxy-authorization.service';
+
 
 export const router: Router = Router();
 
@@ -20,6 +23,8 @@ interface HttpResponse {
   status: number;
   headers: [string, string | string[] | undefined][];
 }
+
+const proxyAuthorizationService = new ProxyAuthorizationService(config.proxy.auth);
 
 router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   const decoded = atob(req.params.url);
@@ -43,8 +48,10 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
 function forward(url: string, callback: (httpResponse: HttpResponse) => void): void {
   const resource = new URL(url);
 
+  const resourceHeaders = proxyAuthorizationService.authorize(resource);
+
   const chunks: any[] = [];
-  (resource.protocol === 'http:' ? http : https).get(resource, (res: IncomingMessage) => {
+  (resource.protocol === 'http:' ? http : https).get(resource, { headers: resourceHeaders }, (res: IncomingMessage) => {
     const { headers: incommingHeaders } = res;
     const headers = Object.entries(incommingHeaders);
 
