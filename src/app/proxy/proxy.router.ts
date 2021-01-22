@@ -2,21 +2,12 @@ import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
-import { atob, btoa } from '../../utils';
+import { atob } from '../../utils';
 import config from '../../../config.json';
 import { ProxyAuthorizationService } from './auth/proxy-authorization.service';
 
 
 export const router: Router = Router();
-
-export function proxy(url: string): string {
-  const encoded = btoa(url);
-  return createProxyUrl(encoded);
-}
-
-function createProxyUrl(encodedUrl: string): string {
-  return `${PROXY_ENDPOINT}/${encodedUrl}`;
-}
 
 interface HttpResponse {
   data: any;

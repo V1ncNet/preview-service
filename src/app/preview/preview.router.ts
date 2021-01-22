@@ -1,10 +1,19 @@
 import { Router, Request, Response } from 'express';
-import { PREVIEW_ENDPOINT } from '../../constants/endpoint';
-import { proxy } from '../proxy/proxy.router';
+import { PREVIEW_ENDPOINT, PROXY_ENDPOINT } from '../../constants/endpoint';
 import config from '../../../config.json';
 import { countOccurrencesOf, nCopies } from '../../utils';
+import { btoa } from '../../utils';
 
 export const router: Router = Router();
+
+function proxy(url: string): string {
+  const encoded = btoa(url);
+  return createProxyUrl(encoded);
+}
+
+function createProxyUrl(encodedUrl: string): string {
+  return `${PROXY_ENDPOINT}/${encodedUrl}`;
+}
 
 router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
 
