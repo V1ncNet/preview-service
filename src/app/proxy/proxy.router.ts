@@ -4,7 +4,7 @@ import https from 'https';
 import http, { IncomingMessage } from 'http';
 import { atob } from '../../utils';
 import config from '../../../config.json';
-import { ProxyAuthorizationService } from './auth/proxy-authorization.service';
+import { ProxyAuthenticationService } from './auth/proxy-authentication.service';
 
 
 export const router: Router = Router();
@@ -15,7 +15,7 @@ interface HttpResponse {
   headers: [string, string | string[] | undefined][];
 }
 
-const proxyAuthorizationService = new ProxyAuthorizationService(config.proxy.auth);
+const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
 
 router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   const decoded = atob(req.params.url);
@@ -39,7 +39,7 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
 function forward(url: string, callback: (httpResponse: HttpResponse) => void): void {
   const resource = new URL(url);
 
-  const resourceHeaders = proxyAuthorizationService.authorize(resource);
+  const resourceHeaders = proxyAuthenticationService.authenticate(resource);
 
   const chunks: any[] = [];
   (resource.protocol === 'http:' ? http : https).get(resource, { headers: resourceHeaders }, (res: IncomingMessage) => {

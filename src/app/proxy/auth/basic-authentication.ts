@@ -1,6 +1,6 @@
 import { OutgoingHttpHeaders } from 'http';
-import { AuthorizationScheme } from './authorization-scheme';
-import { ResourceUri } from './proxy-authorization.service';
+import { AuthenticationScheme } from './authentication-scheme';
+import { ResourceUri } from './proxy-authentication.service';
 import { btoa } from '../../../utils';
 
 
@@ -10,14 +10,14 @@ export interface UserPass {
   basic_credentials?: string;
 }
 
-export interface BasicAuthorizationConfiguration extends ResourceUri, UserPass { }
+export interface BasicAuthenticationConfiguration extends ResourceUri, UserPass { }
 
-export class BasicAuthorization extends AuthorizationScheme {
+export class BasicAuthentication extends AuthenticationScheme {
 
   private _hostname: string;
   private _port: number | string;
 
-  constructor(private config: BasicAuthorizationConfiguration) {
+  constructor(private config: BasicAuthenticationConfiguration) {
     super('basic');
     this._hostname = config.hostname;
     this._port = config.port;

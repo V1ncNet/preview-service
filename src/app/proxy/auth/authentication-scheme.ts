@@ -1,11 +1,11 @@
 import { OutgoingHttpHeaders } from 'http';
 
 
-export type AuthorizationSchemeType = 'basic';
+export type AuthenticationSchemeType = 'basic';
 
-export abstract class AuthorizationScheme {
+export abstract class AuthenticationScheme {
 
-  constructor(public scheme: AuthorizationSchemeType) { }
+  constructor(public scheme: AuthenticationSchemeType) { }
 
   abstract get hostname(): string;
 
