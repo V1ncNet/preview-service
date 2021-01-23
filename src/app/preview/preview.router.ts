@@ -28,8 +28,9 @@ router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
   const proxyPath = proxy(url);
   const { uri: pdfViewerUri } = config.resources.pdf.viewer;
   const pathOffset = calcRelativePathOffset(pdfViewerUri);
+  const options = config.resources.pdf.viewer.options || { };
 
-  const queryString = new URLSearchParams({ file: pathOffset + proxyPath })
+  const queryString = new URLSearchParams({ file: pathOffset + proxyPath, ...options })
   const viewerUrl = `${pdfViewerUri}?${queryString}`;
 
   return res.redirect(viewerUrl);

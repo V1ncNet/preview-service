@@ -4,7 +4,9 @@
   "resources": {
     "pdf": {
       "viewer": {
-        "uri": "/r/pdfjs/build/minified/web/viewer.html"
+        "uri": "/r/pdfjs/build/minified/web/viewer.html",
+        "options": {
+        }
       }
     }
   },
