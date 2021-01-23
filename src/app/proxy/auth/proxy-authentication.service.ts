@@ -1,6 +1,7 @@
 import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationSchemeFactory } from './authentication-scheme.factory';
 import { BasicAuthenticationConfiguration } from './basic-authentication';
+import { BearerAuthenticationConfiguration } from './bearer-authentication';
 
 
 export interface ResourceUri {
@@ -8,7 +9,7 @@ export interface ResourceUri {
   port: number | string;
 }
 
-export type AuthConfigType = BasicAuthenticationConfiguration[];
+export type AuthConfigType = BasicAuthenticationConfiguration[] | BearerAuthenticationConfiguration[];
 
 export interface AuthenticationConfig {
   [scheme: string]: AuthConfigType;

@@ -1,7 +1,7 @@
 import { OutgoingHttpHeaders } from 'http';
 
 
-export type AuthenticationSchemeType = 'basic';
+export type AuthenticationSchemeType = 'basic' | 'bearer';
 
 export abstract class AuthenticationScheme {
 

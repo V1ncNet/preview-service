@@ -1,5 +1,6 @@
 import { AuthenticationScheme } from './authentication-scheme';
-import { BasicAuthentication } from './basic-authentication';
+import { BasicAuthentication, BasicAuthenticationConfiguration } from './basic-authentication';
+import { BearerAuthentication, BearerAuthenticationConfiguration } from './bearer-authentication';
 import { AuthConfigType } from './proxy-authentication.service';
 
 
@@ -10,8 +11,11 @@ export class AuthenticationSchemeFactory {
 
     switch (scheme) {
       case 'basic':
-        return configs
+        return (configs as BasicAuthenticationConfiguration[])
           .map(config => new BasicAuthentication(config));
+      case 'bearer':
+        return (configs as BearerAuthenticationConfiguration[])
+          .map(config => new BearerAuthentication(config));
       default:
         throw new Error('Authentication scheme could not be determined');
     }
