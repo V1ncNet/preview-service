@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import config from '../config.json';
 import { getFilesWithKeyword } from './utils';
+import { InternalServerError } from './web';
 
 const app: Express = express();
 
@@ -42,11 +43,7 @@ getFilesWithKeyword('router', 'src/app').forEach((file: string) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  return res.status(500).json({
-    errorName: err.name,
-    message: err.message,
-    stack: err.stack || 'no stack defined'
-  });
+  return res.status(500).json(new InternalServerError(err, req));
 });
 
 app.use('/r', express.static(path.join(__dirname, 'r')));

@@ -23,6 +23,10 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   forward(decoded, (httpResponse: HttpResponse) => {
     const { data, status, headers } = httpResponse;
 
+    if (status != 200) {
+      return res.status(status).send();
+    }
+
     headers.forEach(entry => {
       const { 0: key, 1: value } = entry;
       if (value) {
@@ -30,8 +34,7 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
       }
     });
 
-    res.type('blob');
-    res.status(status)
+    res.status(200)
       .send(data);
   });
 });
@@ -53,7 +56,7 @@ function forward(url: string, callback: (httpResponse: HttpResponse) => void): v
 
       callback({
         data,
-        status: res.statusCode as number,
+        status: res.statusCode || 500,
         headers,
       });
     });

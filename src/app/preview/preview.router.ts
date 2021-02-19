@@ -3,6 +3,7 @@ import { PREVIEW_ENDPOINT, PROXY_ENDPOINT } from '../../constants/endpoint';
 import config from '../../../config.json';
 import { countOccurrencesOf, nCopies } from '../../utils';
 import { btoa } from '../../utils';
+import { BadRequest } from '../../web';
 
 export const router: Router = Router();
 
@@ -19,10 +20,9 @@ router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
 
   const url: string = String(req.query.url);
 
-  if (!url) {
-    return res.status(400).send({
-      message: 'Request param [url] must be provided'
-    });
+  if (typeof req.query.url !== 'string' || !url) {
+    const err = new Error('Request param \'url\' must be provided')
+    res.status(400).send(new BadRequest(err, req));
   }
 
   const proxyPath = proxy(url);
