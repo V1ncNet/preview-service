@@ -9,23 +9,17 @@ import { ProxyAuthenticationService } from './auth/proxy-authentication.service'
 
 export const router: Router = Router();
 
-interface HttpResponse {
-  data: any;
-  status: number;
-  headers: [string, string | string[] | undefined][];
-}
-
 const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
 
 router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   const decoded = atob(req.params.url);
+  const url = new URL(decoded);
+  const resourceHeaders = proxyAuthenticationService.authenticate(url);
+  resourceHeaders.range = req.headers.range || [];
 
-  forward(decoded, (httpResponse: HttpResponse) => {
-    const { data, status, headers } = httpResponse;
-
-    if (status != 200) {
-      return res.status(status).send();
-    }
+  (url.protocol === 'http:' ? http : https).get(url, { headers: resourceHeaders }, (pRes: IncomingMessage) => {
+    const { headers: incommingHeaders } = pRes;
+    const headers = Object.entries(incommingHeaders);
 
     headers.forEach(entry => {
       const { 0: key, 1: value } = entry;
@@ -34,33 +28,20 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
       }
     });
 
-    res.status(200)
-      .send(data);
-  });
-});
+    res.status(pRes.statusCode || 500);
 
-function forward(url: string, callback: (httpResponse: HttpResponse) => void): void {
-  const resource = new URL(url);
-
-  const resourceHeaders = proxyAuthenticationService.authenticate(resource);
-
-  const chunks: any[] = [];
-  (resource.protocol === 'http:' ? http : https).get(resource, { headers: resourceHeaders }, (res: IncomingMessage) => {
-    const { headers: incommingHeaders } = res;
-    const headers = Object.entries(incommingHeaders);
-
-    res.on('data', chunk => chunks.push(chunk));
-
-    res.on('end', () => {
-      const data = Buffer.concat(chunks);
-
-      callback({
-        data,
-        status: res.statusCode || 500,
-        headers,
-      });
+    pRes.on('data', chunk => {
+      res.write(chunk);
     });
-  }).on('error', (error: Error) => {
-    throw error;
+
+    pRes.on('close', () => {
+      res.end();
+    });
+
+    pRes.on('end', () => {
+      res.end();
+    });
+  }).on('error', (err: Error) => {
+    throw err;
   }).end();
-}
+});
