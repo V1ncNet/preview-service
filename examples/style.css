@@ -1,0 +1,23 @@
+:root {
+  --content-margin: 8px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: calc(100vh - 2 * var(--content-margin));
+}
+
+body {
+  margin: var(--content-margin);
+}
+
+iframe {
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
