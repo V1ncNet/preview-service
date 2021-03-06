@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/r/pdfjs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/r/pdfjs/test/ttx/fonttools-code" vcs="Git" />
+  </component>
+</project>
