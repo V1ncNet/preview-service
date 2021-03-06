@@ -1,23 +1,27 @@
 FROM node:lts-alpine AS viewer-builder
 
-WORKDIR          /usr/src/pdf.js/
+RUN apk --no-cache add \
+      git \
+      build-base \
+      g++ \
+      cairo-dev \
+      jpeg-dev \
+      pango-dev \
+      giflib-dev
 
-COPY src/r/pdfjs .
+WORKDIR /usr/src/pdf.js
 
-ARG PDFJS_REF=v2.5.207
-RUN apk add --no-cache git
-RUN git fetch --all \
+ARG PDFJS_UPSTREAM=https://github.com/mozilla/pdf.js
+ARG PDFJS_REF=HEAD
+RUN git clone --recurse-submodules $PDFJS_UPSTREAM . \
  && git checkout $PDFJS_REF
 
-RUN npm install \
-  && npm cache verify --force
-
+RUN npm install --silent
 ENV NODE_ENV=production
-
 RUN npx gulp minified
 
 
-FROM node:lts-alpine
+FROM node:lts-alpine AS service-builder
 
 WORKDIR                    /usr/src/app
 
@@ -29,20 +33,27 @@ RUN npm install \
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-COPY config.json           .
-COPY tsconfig.json         .
-COPY src/index.ts          ./src/
-COPY src/server.ts         ./src/
-COPY src/app               ./src/app/
-COPY src/constants         ./src/constants/
-COPY src/utils             ./src/utils/
-COPY --from=viewer-builder /usr/src/pdf.js/build/minified \
-                           ./build/src/r/pdfjs/build/minified/
+COPY . .
 
 RUN npm run build
+
+
+FROM node:lts-alpine
+
+WORKDIR /opt/pdf.js-service
+
+COPY --from=service-builder /usr/src/app/package*.json ./
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+RUN npm install --silent \
+ && npm prune --production
+
+COPY --from=service-builder /usr/src/app/build ./build
+COPY --from=viewer-builder  /usr/src/pdf.js/build/minified ./build/src/r/pdfjs/build/minified/
 
 ARG PORT=8080
 ENV PORT=$PORT
 
 EXPOSE ${PORT}
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
