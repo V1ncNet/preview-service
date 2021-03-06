@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { PREVIEW_ENDPOINT } from '../application/endpoints';
 import { BadRequest } from '../model';
 import { CorsUriResolver } from '../proxy/cors-uri-resolver';
-import { PdfjsViewerResources } from './pdfjs-viewer-resources';
+import { PdfjsViewerResources } from '../infrastructure/pdfjs-viewer-resources';
 
 
 export const router: Router = Router();
