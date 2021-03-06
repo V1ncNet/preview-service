@@ -49,8 +49,8 @@ ENV NODE_ENV=$NODE_ENV
 RUN npm install --silent \
  && npm prune --production
 
-COPY --from=service-builder /usr/src/app/build ./build
-COPY --from=viewer-builder  /usr/src/pdf.js/build/minified ./build/src/r/pdfjs/build/minified/
+COPY --from=service-builder /usr/src/app/dist ./dist
+COPY --from=viewer-builder  /usr/src/pdf.js/build/minified ./dist/r/pdfjs/build/minified/
 
 ARG PORT=8080
 ENV PORT=$PORT

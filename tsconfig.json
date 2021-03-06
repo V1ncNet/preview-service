@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
     "target": "es6",
     "module": "commonjs",
     "allowJs": true,
     "sourceMap": false,
-    "outDir": "./build",
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
