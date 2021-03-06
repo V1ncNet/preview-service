@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "pdf-viewer initialised with create-express-typescript-application.",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "src/index",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p .",
     "start": "node dist/index.js",
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,7 @@
     "watch": [
       "src"
     ],
-    "ext": "ts, json",
+    "ext": "js, ts, json",
     "ignore": [
       "src/r/",
       "src/**/*.spec.ts"
