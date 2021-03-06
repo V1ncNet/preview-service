@@ -3,7 +3,7 @@ import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
 import { atob, btoa } from '../../utils';
-import config from '../../../config.json';
+import config from '../../config.json';
 import { ProxyAuthenticationService } from './auth/proxy-authentication.service';
 
 

@@ -1,5 +1,5 @@
 import app from './server';
-import config from '../config.json';
+import config from './config.json';
 
 
 // Start the application by listening to specific port

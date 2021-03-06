@@ -3,7 +3,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import config from '../config.json';
+import config from './config.json';
 import { getFilesWithKeyword } from './utils';
 import { InternalServerError } from './web';
 
