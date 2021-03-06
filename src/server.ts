@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import config from './config.json';
 import { getFilesWithKeyword } from './utils';
-import { InternalServerError } from './web';
+import { InternalServerError } from './app/model';
 
 
 const app: Express = express();
