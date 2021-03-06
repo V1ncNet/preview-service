@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production' || config.NODE_ENV === 'production') {
  *                               Register all routes
  ***********************************************************************************/
 
-getFilesWithKeyword('router', 'src/app').forEach((file: string) => {
+getFilesWithKeyword('router', 'src/app/presentation').forEach((file: string) => {
   const { router } = require(file.replace('src', '.'));
   app.use(config.server.contextPath, router);
 });
