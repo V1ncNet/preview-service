@@ -3,12 +3,13 @@ import config from '../../../config.json';
 export class PdfjsViewerResources {
 
   getRedirection(documentUri: string): string {
+    const contextPath = config.server.contextPath;
     const { uri: pdfViewerUri } = config.resources.pdf.viewer;
     const options = config.resources.pdf.viewer.options || { };
 
     const queryString = new URLSearchParams({ file: documentUri });
     const hashString = new URLSearchParams({ ...options });
-    const viewerUrl = `${pdfViewerUri}?${queryString}#${hashString}`;
+    const viewerUrl = `${contextPath}${pdfViewerUri}?${queryString}#${hashString}`;
 
     return viewerUrl;
   }

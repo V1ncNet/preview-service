@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production' || config.NODE_ENV === 'production') {
 
 getFilesWithKeyword('router', 'src/app').forEach((file: string) => {
   const { router } = require(file.replace('src', '.'));
-  app.use('/', router);
+  app.use(config.server.contextPath, router);
 })
 
 /************************************************************************************
@@ -46,6 +46,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   return res.status(500).json(new InternalServerError(err, req));
 });
 
-app.use('/r', express.static(path.join(__dirname, 'r')));
+app.use(config.server.contextPath + '/r', express.static(path.join(__dirname, 'r')));
 
 export default app;
