@@ -1,5 +1,22 @@
+### Git ###
 .git/
 .gitignore
 
-build/
+### JetBrains ###
+.idea/
+
+### VS Code ###
+.vscode/
+.history/
+
+### Node ###
+logs/
 node_modules/
+*.tsbuildinfo
+.eslintcache
+
+### Project ###
+src/r/
+build/
+examples/
+.editorconfig
