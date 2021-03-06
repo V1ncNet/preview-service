@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Example Live Server" type="JavascriptDebugType" uri="http://localhost:63342/pdf-viewer/examples/index.html" useBuiltInWebServerPort="true">
+    <method v="2" />
+  </configuration>
+</component>
