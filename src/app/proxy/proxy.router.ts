@@ -4,7 +4,7 @@ import https from 'https';
 import http, { IncomingMessage } from 'http';
 import { atob, btoa } from '../application/base64';
 import config from '../../config.json';
-import { ProxyAuthenticationService } from './auth/proxy-authentication.service';
+import { ProxyAuthenticationService } from '../application/auth/proxy-authentication.service';
 
 
 export const router: Router = Router();
