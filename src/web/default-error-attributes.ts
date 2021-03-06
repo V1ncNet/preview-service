@@ -1,5 +1,6 @@
 import { ErrorAttributes } from './error-attributes';
 
+
 export class DefaultErrorAttributes implements ErrorAttributes {
 
   timestamp: string;

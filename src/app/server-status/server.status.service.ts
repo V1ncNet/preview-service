@@ -17,4 +17,4 @@ export const getRoutes = (): Array<string> => {
   });
 
   return routes;
-}
+};

@@ -1,5 +1,6 @@
 import config from '../../../config.json';
 
+
 export class PdfjsViewerResources {
 
   getRedirection(documentUri: string): string {
@@ -9,8 +10,6 @@ export class PdfjsViewerResources {
 
     const queryString = new URLSearchParams({ file: documentUri });
     const hashString = new URLSearchParams({ ...options });
-    const viewerUrl = `${contextPath}${pdfViewerUri}?${queryString}#${hashString}`;
-
-    return viewerUrl;
+    return `${contextPath}${pdfViewerUri}?${queryString}#${hashString}`;
   }
 }

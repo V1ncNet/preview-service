@@ -14,8 +14,8 @@ export interface BasicAuthenticationConfiguration extends ResourceUri, UserPass 
 
 export class BasicAuthentication extends AuthenticationScheme {
 
-  private _hostname: string;
-  private _port: number | string;
+  private readonly _hostname: string;
+  private readonly _port: number | string;
 
   constructor(private config: BasicAuthenticationConfiguration) {
     super('basic');
@@ -26,6 +26,7 @@ export class BasicAuthentication extends AuthenticationScheme {
   get hostname(): string {
     return this._hostname;
   }
+
   get port(): string {
     return String(this._port);
   }

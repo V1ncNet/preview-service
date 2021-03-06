@@ -1,5 +1,6 @@
 import fs from 'fs';
 
+
 export const getFilesWithKeyword = (keyword: string, folderName: string, files_?: Array<string>) => {
   files_ = (typeof files_ === 'undefined') ? [] : files_;
   const files = fs.readdirSync(folderName);
@@ -12,4 +13,4 @@ export const getFilesWithKeyword = (keyword: string, folderName: string, files_?
     }
   }
   return files_;
-}
+};

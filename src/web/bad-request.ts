@@ -2,6 +2,7 @@ import { ErrorAttributes } from './error-attributes';
 import { HttpError } from './http-error';
 import { Request } from 'express';
 
+
 export class BadRequest extends HttpError implements ErrorAttributes {
 
   status = 400;

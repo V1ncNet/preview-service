@@ -5,13 +5,11 @@ export type AuthenticationSchemeType = 'basic' | 'bearer';
 
 export abstract class AuthenticationScheme {
 
-  constructor(public scheme: AuthenticationSchemeType) { }
+  protected constructor(public scheme: AuthenticationSchemeType) { }
 
   abstract get hostname(): string;
 
   abstract get port(): string;
-
-  protected abstract extend(headers: OutgoingHttpHeaders): void;
 
   create(): OutgoingHttpHeaders {
     const headers: OutgoingHttpHeaders = { };
@@ -22,4 +20,6 @@ export abstract class AuthenticationScheme {
   applies(url: URL): boolean {
     return url.hostname === this.hostname && url.port === this.port;
   }
+
+  protected abstract extend(headers: OutgoingHttpHeaders): void;
 }

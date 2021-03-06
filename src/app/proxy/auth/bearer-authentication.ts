@@ -11,8 +11,8 @@ export interface BearerAuthenticationConfiguration extends ResourceUri, AccessTo
 
 export class BearerAuthentication extends AuthenticationScheme {
 
-  private _hostname: string;
-  private _port: number | string;
+  private readonly _hostname: string;
+  private readonly _port: number | string;
 
   constructor(private config: BearerAuthenticationConfiguration) {
     super('bearer');
@@ -23,12 +23,12 @@ export class BearerAuthentication extends AuthenticationScheme {
   get hostname(): string {
     return this._hostname;
   }
+
   get port(): string {
     return String(this._port);
   }
 
   protected extend(headers: OutgoingHttpHeaders): void {
-    const bearerAuth = `Basic ${this.config.access_token}`;
-    headers['Authorization'] = bearerAuth;
+    headers['Authorization'] = `Basic ${this.config.access_token}`;
   }
 }

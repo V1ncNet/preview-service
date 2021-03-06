@@ -1,11 +1,12 @@
 import path from 'path';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from '../config.json';
 import { getFilesWithKeyword } from './utils';
 import { InternalServerError } from './web';
+
 
 const app: Express = express();
 
@@ -35,7 +36,7 @@ if (process.env.NODE_ENV === 'production' || config.NODE_ENV === 'production') {
 getFilesWithKeyword('router', 'src/app').forEach((file: string) => {
   const { router } = require(file.replace('src', '.'));
   app.use(config.server.contextPath, router);
-})
+});
 
 /************************************************************************************
  *                               Express Error Handling

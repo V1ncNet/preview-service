@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
@@ -18,8 +18,8 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
   resourceHeaders.range = req.headers.range || [];
 
   (url.protocol === 'http:' ? http : https).get(url, { headers: resourceHeaders }, (pRes: IncomingMessage) => {
-    const { headers: incommingHeaders } = pRes;
-    const headers = Object.entries(incommingHeaders);
+    const { headers: incomingHeaders } = pRes;
+    const headers = Object.entries(incomingHeaders);
 
     headers.forEach(entry => {
       const { 0: key, 1: value } = entry;
