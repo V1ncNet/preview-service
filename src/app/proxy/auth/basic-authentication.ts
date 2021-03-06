@@ -1,7 +1,7 @@
 import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationScheme } from './authentication-scheme';
 import { ResourceUri } from './proxy-authentication.service';
-import { btoa } from '../../../utils';
+import { btoa } from '../../application/base64';
 
 
 export interface UserPass {

@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from './config.json';
-import { getFilesWithKeyword } from './utils';
+import { getFilesWithKeyword } from './app/application/getFilesWithKeyword';
 import { InternalServerError } from './app/model';
 
 

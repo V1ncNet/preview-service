@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { PROXY_ENDPOINT } from '../application/endpoints';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
-import { atob, btoa } from '../../utils';
+import { atob, btoa } from '../application/base64';
 import config from '../../config.json';
 import { ProxyAuthenticationService } from './auth/proxy-authentication.service';
 
