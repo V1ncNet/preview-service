@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { PROXY_ENDPOINT } from '../../constants/endpoint';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
-import { atob } from '../../utils';
+import { atob, btoa } from '../../utils';
 import config from '../../../config.json';
 import { ProxyAuthenticationService } from './auth/proxy-authentication.service';
 
@@ -45,3 +45,12 @@ router.get(PROXY_ENDPOINT + '/:url', (req: Request, res: Response) => {
     throw err;
   }).end();
 });
+
+export function proxy(url: string): string {
+  const encoded = btoa(url);
+  return createProxyUrl(encoded);
+}
+
+function createProxyUrl(encodedUrl: string): string {
+  return `${PROXY_ENDPOINT}/${encodedUrl}`;
+}

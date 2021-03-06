@@ -1,20 +1,13 @@
 import { Router, Request, Response } from 'express';
-import { PREVIEW_ENDPOINT, PROXY_ENDPOINT } from '../../constants/endpoint';
+import { PREVIEW_ENDPOINT } from '../../constants/endpoint';
 import config from '../../../config.json';
 import { countOccurrencesOf, nCopies } from '../../utils';
-import { btoa } from '../../utils';
 import { BadRequest } from '../../web';
+import { CorsUriResolver } from '../proxy/cors-uri-resolver';
 
 export const router: Router = Router();
 
-function proxy(url: string): string {
-  const encoded = btoa(url);
-  return createProxyUrl(encoded);
-}
-
-function createProxyUrl(encodedUrl: string): string {
-  return `${PROXY_ENDPOINT}/${encodedUrl}`;
-}
+const uriResolver = new CorsUriResolver();
 
 router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
 
@@ -25,7 +18,7 @@ router.get(PREVIEW_ENDPOINT + '/pdf', (req: Request, res: Response) => {
     res.status(400).send(new BadRequest(err, req));
   }
 
-  const proxyPath = proxy(url);
+  const proxyPath = uriResolver.resolve(url);
   const { uri: pdfViewerUri } = config.resources.pdf.viewer;
   const pathOffset = calcRelativePathOffset(pdfViewerUri);
   const options = config.resources.pdf.viewer.options || { };
