@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { PREVIEW_ENDPOINT } from '../../constants/endpoint';
+import { PREVIEW_ENDPOINT } from '../application/endpoints';
 import { BadRequest } from '../../web';
 import { CorsUriResolver } from '../proxy/cors-uri-resolver';
 import { PdfjsViewerResources } from './pdfjs-viewer-resources';

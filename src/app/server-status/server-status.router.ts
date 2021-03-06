@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { SERVER_STATUS_ENDPOINT } from '../../constants/endpoint';
+import { SERVER_STATUS_ENDPOINT } from '../application/endpoints';
 import { getRoutes } from './server.status.service';
 
 

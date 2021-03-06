@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { PROXY_ENDPOINT } from '../../constants/endpoint';
+import { PROXY_ENDPOINT } from '../application/endpoints';
 import https from 'https';
 import http, { IncomingMessage } from 'http';
 import { atob, btoa } from '../../utils';
