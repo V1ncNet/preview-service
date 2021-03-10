@@ -6,11 +6,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
 import { CorsUriResolver } from './app/presentation/cors-uri-resolver';
-import { PdfjsViewerResources } from './app/infrastructure/pdfjs-viewer-resources';
+import { ViewerResources } from './app/infrastructure/viewer-resources';
 import { ProxyAuthenticationService } from './app/application/auth/proxy-authentication.service';
 
 export const uriResolver = new CorsUriResolver();
-export const viewerResources = new PdfjsViewerResources();
+export const viewerResources = new ViewerResources();
 export const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
 
 (async () => {

@@ -1,7 +1,7 @@
 import config from '../../config.json';
 
 
-export class PdfjsViewerResources {
+export class ViewerResources {
 
   getRedirection(documentUri: string): string {
     const contextPath = config.server.contextPath;
