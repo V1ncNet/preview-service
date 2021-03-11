@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS viewer-builder
+FROM node:lts-alpine AS pdfjs-builder
 
 RUN apk --no-cache add \
       git \
@@ -21,14 +21,13 @@ ENV NODE_ENV=production
 RUN npx gulp minified
 
 
-FROM node:lts-alpine AS service-builder
+FROM node:lts-alpine AS viewer-builder
 
 WORKDIR                    /usr/src/app
 
 COPY package*.json         .
 
-RUN npm install \
- && npm cache verify --force
+RUN npm install --silent
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
@@ -38,19 +37,20 @@ COPY . .
 RUN npm run build
 
 
-FROM node:lts-alpine
+FROM node:lts-alpine AS server-builder
 
 WORKDIR /opt/pdf.js-service
 
-COPY --from=service-builder /usr/src/app/package*.json ./
+COPY --from=viewer-builder /usr/src/app/package*.json ./
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 RUN npm install --silent \
- && npm prune --production
+ && npm prune --production \
+ && npm cache clean --force
 
-COPY --from=service-builder /usr/src/app/dist ./dist
-COPY --from=viewer-builder  /usr/src/pdf.js/build/minified ./dist/r/pdfjs/build/minified/
+COPY --from=pdfjs-builder  /usr/src/pdf.js/build/minified ./dist/r/pdfjs/build/minified/
+COPY --from=viewer-builder /usr/src/app/dist              ./dist
 
 ARG PORT=8080
 ENV PORT=$PORT
