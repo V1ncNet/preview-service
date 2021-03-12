@@ -15,7 +15,7 @@ export class BearerAuthentication extends AuthenticationScheme {
   private readonly _port: number | string;
 
   constructor(private config: BearerAuthenticationConfiguration) {
-    super('bearer');
+    super();
     this._hostname = config.hostname;
     this._port = config.port;
   }

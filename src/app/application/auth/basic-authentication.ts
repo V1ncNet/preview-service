@@ -18,7 +18,7 @@ export class BasicAuthentication extends AuthenticationScheme {
   private readonly _port: number | string;
 
   constructor(private config: BasicAuthenticationConfiguration) {
-    super('basic');
+    super();
     this._hostname = config.hostname;
     this._port = config.port;
   }
