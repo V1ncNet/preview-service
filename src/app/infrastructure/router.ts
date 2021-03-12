@@ -1,7 +1,7 @@
 import { Application } from 'express';
 import { ControllerClass, Route } from '../presentation/controller';
 import { getControllers } from '../presentation';
-import config from '../../config.json';
+import config from '../config';
 
 
 export default class Router {

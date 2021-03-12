@@ -1,6 +1,6 @@
+import config from './app/config';
 import Server from './app/infrastructure/server';
 import express from 'express';
-import config from './config.json';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -20,12 +20,12 @@ export const proxyAuthenticationService = new ProxyAuthenticationService(config.
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
 
-  if (process.env.NODE_ENV === 'development' || config.NODE_ENV === 'development') {
+  if (config.environment === 'development') {
     server.use(morgan('dev'));
     server.use(cors());
   }
 
-  if (process.env.NODE_ENV === 'production' || config.NODE_ENV === 'production') {
+  if (config.environment === 'production') {
     server.use(helmet());
   }
 

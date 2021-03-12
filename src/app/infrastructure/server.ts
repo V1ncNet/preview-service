@@ -1,7 +1,7 @@
 import express, { Application, ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express';
 import http from 'http';
 import Router from './router';
-import config from '../../config.json';
+import config from '../config';
 import { HttpError, NotFoundError } from '../model';
 
 
@@ -11,8 +11,6 @@ interface IRouteOptions {
 }
 
 export default class Server {
-
-  public static readonly PORT: number = 3000;
 
   private readonly _app: Application;
   private readonly _server: http.Server;
@@ -26,7 +24,7 @@ export default class Server {
     this._server = http.createServer(this._app);
     this._router = router;
     this._middleware = [];
-    this._port = process.env.PORT || config.PORT || Server.PORT;
+    this._port = config.port;
     this._running = false;
   }
 

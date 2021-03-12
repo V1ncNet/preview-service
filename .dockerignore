@@ -20,3 +20,4 @@ src/r/
 dist/
 examples/
 .editorconfig
+config.json

@@ -16,3 +16,4 @@ node_modules/
 ### Project ###
 dist/*
 !dist/r/
+config.json
