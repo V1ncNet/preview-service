@@ -52,7 +52,7 @@ RUN npm install --silent \
 COPY --from=pdfjs-builder  /usr/src/pdf.js/build/minified ./dist/r/pdfjs/build/minified/
 COPY --from=viewer-builder /usr/src/app/dist              ./dist
 
-ARG PORT=8080
+ARG PORT=3000
 ENV PORT=$PORT
 
 EXPOSE ${PORT}
