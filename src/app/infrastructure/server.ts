@@ -1,7 +1,7 @@
 import express, { Application, ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express';
 import http from 'http';
 import Router from './router';
-import config from '../config';
+import config from '../../config';
 import { HttpError, NotFoundError } from '../model';
 
 

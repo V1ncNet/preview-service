@@ -1,4 +1,4 @@
-import config from './app/config';
+import config from './config';
 import Server from './app/infrastructure/server';
 import express from 'express';
 import morgan from 'morgan';

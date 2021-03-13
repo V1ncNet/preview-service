@@ -5,7 +5,7 @@ import https from 'https';
 // @ts-ignore
 import { controller, get } from '../application/routing';
 import Controller from './controller';
-import { PROXY_ENDPOINT } from '../application/endpoints';
+import { PROXY_ENDPOINT } from '../../config/endpoints';
 import { proxyAuthenticationService } from '../../index';
 import { atob, btoa } from '../application/base64';
 

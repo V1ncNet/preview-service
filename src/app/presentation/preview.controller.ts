@@ -5,7 +5,7 @@ import { controller, get } from '../application/routing';
 import Controller from './controller';
 import { BadRequest } from '../model';
 import { uriResolver, viewerResources } from '../../index';
-import { PREVIEW_ENDPOINT } from '../application/endpoints';
+import { PREVIEW_ENDPOINT } from '../../config/endpoints';
 
 @controller(PREVIEW_ENDPOINT)
 export default class PreviewController extends Controller {

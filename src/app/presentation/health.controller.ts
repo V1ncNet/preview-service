@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 // @ts-ignore
 import { controller, get } from '../application/routing';
 import Controller from './controller';
-import { SERVER_STATUS_ENDPOINT } from '../application/endpoints';
+import { SERVER_STATUS_ENDPOINT } from '../../config/endpoints';
 
 
 @controller(SERVER_STATUS_ENDPOINT)
