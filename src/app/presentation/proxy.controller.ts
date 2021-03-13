@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import http, { IncomingMessage } from 'http';
 import https from 'https';
 import { controller, get } from '../../lib/web/bind/annotations';
-import Controller from './controller';
+import { Controller } from '../../lib/web';
 import { PROXY_ENDPOINT } from '../../config/endpoints';
 import { proxyAuthenticationService } from '../../index';
 import { atob, btoa } from '../../lib/utils';

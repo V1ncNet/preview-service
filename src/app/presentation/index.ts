@@ -1,7 +1,7 @@
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
-import { ControllerClass } from './controller';
+import { ControllerClass } from '../../lib/web';
 
 export const getControllers = async (): Promise<ControllerClass[]> => {
   const controllerFiles = (await readDir(__dirname)).filter(filterControllers);

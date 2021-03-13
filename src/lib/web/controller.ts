@@ -1,11 +1,6 @@
-export type Route = {
-  method: string,
-  url: string,
-  middleware: Function[],
-  fnName: string,
-};
+import { Route } from './route';
 
-abstract class Controller {
+export abstract class Controller {
 
   // @ts-ignore
   protected $routes: Route[];
@@ -19,4 +14,3 @@ abstract class Controller {
 }
 
 export type ControllerClass = typeof Controller;
-export default Controller;

@@ -1,10 +1,10 @@
 import { Application } from 'express';
-import { ControllerClass, Route } from '../presentation/controller';
-import { getControllers } from '../presentation';
+import { ControllerClass, Route } from '../web';
+import { getControllers } from '../../app/presentation';
 import config from '../../config';
 
 
-export default class Router {
+export class Router {
 
   constructor(private _controllers: ControllerClass[]) { }
 

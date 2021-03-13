@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { controller, get } from '../../lib/web/bind/annotations';
-import Controller from './controller';
+import { Controller } from '../../lib/web';
 import { BadRequest } from '../../lib/http';
 import { uriResolver, viewerResources } from '../../index';
 import { PREVIEW_ENDPOINT } from '../../config/endpoints';
