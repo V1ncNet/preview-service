@@ -2,7 +2,7 @@ import express, { Application, ErrorRequestHandler, NextFunction, Request, Reque
 import http from 'http';
 import Router from './router';
 import config from '../../config';
-import { HttpError, NotFoundError } from '../model';
+import { HttpError, NotFoundError } from '../../lib/http';
 
 
 interface IRouteOptions {

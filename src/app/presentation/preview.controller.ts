@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 // @ts-ignore
 import { controller, get } from '../application/routing';
 import Controller from './controller';
-import { BadRequest } from '../model';
+import { BadRequest } from '../../lib/http';
 import { uriResolver, viewerResources } from '../../index';
 import { PREVIEW_ENDPOINT } from '../../config/endpoints';
 
