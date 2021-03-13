@@ -1,3 +1,4 @@
+export * from './bad-gateway';
 export * from './bad-request';
 export * from './default-error-attributes';
 export * from './error-attributes';
