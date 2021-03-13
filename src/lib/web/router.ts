@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import { ControllerClass, Route } from '../web';
-import { getControllers } from '../../app/presentation';
+import controllers from '../../app/presentation';
 import config from '../../config';
 
 
@@ -9,8 +9,8 @@ export class Router {
   constructor(private _controllers: ControllerClass[]) { }
 
   public static async getDefault(): Promise<Router> {
-    const controllers = await getControllers();
-    return new Router(controllers);
+    const controllers$ = await controllers();
+    return new Router(controllers$);
   }
 
   public static getEmptyRouter(): Router {

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { ControllerClass } from '../../lib/web';
 
-export const getControllers = async (): Promise<ControllerClass[]> => {
+export default async (): Promise<ControllerClass[]> => {
   const controllerFiles = (await readDir(__dirname)).filter(filterControllers);
   const modules = (await importModules(controllerFiles));
 
