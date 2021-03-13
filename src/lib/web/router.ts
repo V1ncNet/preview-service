@@ -19,7 +19,7 @@ export class Router {
 
   public route(app: Application): void {
     if (this._controllers.length <= 0) {
-      throw new RangeError('No controller associated with this router.');
+      throw new Error('No controller associated with this router');
     }
     this._controllers.forEach((controller) => {
       // @ts-ignore

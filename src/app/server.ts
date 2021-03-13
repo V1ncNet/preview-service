@@ -47,7 +47,7 @@ export default class Server {
 
   private checkRunning(): void {
     if (this._running) {
-      throw new Error('Server is already _running.');
+      throw new Error('Server is already running');
     }
   }
 
@@ -67,7 +67,7 @@ export default class Server {
   private listen(): void {
     this._server.listen(this._port, () => {
       this._running = true;
-      console.log('Express application started on port: ' + this._port);
+      console.log(`Express started on port: ${this._port} with context path '${config.server.contextPath}'`);
     });
   }
 
@@ -79,7 +79,7 @@ export default class Server {
 
   private static notFound(req: Request, res: Response, next: NextFunction): void {
     if (res.status(404)) {
-      return next(new NotFoundError(new Error('Resource not found'), req));
+      return next(new NotFoundError(`Cannot ${req.method} ${req.path}`, req));
     }
   }
 

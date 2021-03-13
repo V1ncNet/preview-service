@@ -18,7 +18,7 @@ export class AuthenticationSchemeFactory {
           .map(config => new BearerAuthentication(config));
       default:
         // TODO: Evaluate on startup
-        throw new NotImplemented('Authentication scheme could not be determined');
+        throw new NotImplemented('Authentication scheme is not supported');
     }
   }
 }

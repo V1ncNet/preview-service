@@ -7,7 +7,7 @@ export abstract class Controller {
 
   public getRoutes(): Route[] {
     if (!this.$routes) {
-      throw new RangeError('No routes defined. Did you use routing decorators?');
+      throw new Error('No routes defined');
     }
     return this.$routes;
   }

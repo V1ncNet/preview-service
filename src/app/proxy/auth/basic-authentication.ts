@@ -42,7 +42,7 @@ export class BasicAuthentication extends AuthenticationScheme {
       basicAuth = `Basic ${btoa(credentials)}`;
     } else {
       // TODO: Evaluate on startup
-      throw new InternalServerError('Config\'s credentials could not be determined');
+      throw new InternalServerError(`Config doesn't supply authentication details for ${this._hostname}:${this._port}`);
     }
 
     headers['Authorization'] = basicAuth;
