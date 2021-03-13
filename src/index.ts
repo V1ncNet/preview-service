@@ -5,9 +5,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
-import { CorsUriResolver } from './app/presentation/cors-uri-resolver';
-import { ViewerResources } from './app/infrastructure/viewer-resources';
-import { ProxyAuthenticationService } from './app/application/auth/proxy-authentication.service';
+import { CorsUriResolver } from './app/proxy';
+import { ViewerResources } from './app/preview';
+import { ProxyAuthenticationService } from './app/proxy/auth';
 
 export const uriResolver = new CorsUriResolver();
 export const viewerResources = new ViewerResources();

@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import { ControllerClass, Route } from '../web';
-import controllers from '../../app/presentation';
+import controllers from '../../app';
 import config from '../../config';
 
 
