@@ -1,5 +1,5 @@
 import config from './config';
-import Server from './app/infrastructure/server';
+import Server from './app/server';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';

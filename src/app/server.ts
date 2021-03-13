@@ -1,8 +1,8 @@
 import express, { Application, ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express';
 import http from 'http';
-import { Router } from '../../lib/web';
-import config from '../../config';
-import { HttpError, NotFoundError } from '../../lib/http';
+import { Router } from '../lib/web';
+import config from '../config';
+import { HttpError, NotFoundError } from '../lib/http';
 
 
 interface IRouteOptions {
