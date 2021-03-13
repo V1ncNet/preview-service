@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
 import http, { IncomingMessage } from 'http';
 import https from 'https';
-
-// @ts-ignore
-import { controller, get } from '../application/routing';
+import { controller, get } from '../../lib/web/bind/annotations';
 import Controller from './controller';
 import { PROXY_ENDPOINT } from '../../config/endpoints';
 import { proxyAuthenticationService } from '../../index';

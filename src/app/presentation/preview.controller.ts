@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-
-// @ts-ignore
-import { controller, get } from '../application/routing';
+import { controller, get } from '../../lib/web/bind/annotations';
 import Controller from './controller';
 import { BadRequest } from '../../lib/http';
 import { uriResolver, viewerResources } from '../../index';
