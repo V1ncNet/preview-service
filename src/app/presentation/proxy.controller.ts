@@ -7,7 +7,7 @@ import { controller, get } from '../application/routing';
 import Controller from './controller';
 import { PROXY_ENDPOINT } from '../../config/endpoints';
 import { proxyAuthenticationService } from '../../index';
-import { atob, btoa } from '../application/base64';
+import { atob, btoa } from '../../lib/utils';
 
 
 @controller(PROXY_ENDPOINT)

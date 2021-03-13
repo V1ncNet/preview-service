@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { merge } from 'lodash';
-import { deepFreeze } from '../app/application/deepFreeze';
+import { deepFreeze } from '../lib/utils';
 
 const configFile = path.resolve(process.cwd(), process.env.CONFIG_FILE || 'config.json');
 let fileConfig: any;
