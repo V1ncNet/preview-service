@@ -2,7 +2,7 @@ import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationScheme } from './authentication-scheme';
 import { ResourceUri } from './proxy-authentication.service';
 import { btoa } from '../../../lib/utils';
-
+import { InternalServerError } from '../../../lib/http';
 
 export interface UserPass {
   username?: string;
@@ -41,7 +41,8 @@ export class BasicAuthentication extends AuthenticationScheme {
       const credentials = `${username}:${password}`;
       basicAuth = `Basic ${btoa(credentials)}`;
     } else {
-      throw new Error('Config\'s credentials could not be determined');
+      // TODO: Evaluate on startup
+      throw new InternalServerError('Config\'s credentials could not be determined');
     }
 
     headers['Authorization'] = basicAuth;

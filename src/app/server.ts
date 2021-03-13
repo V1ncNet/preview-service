@@ -2,7 +2,7 @@ import express, { Application, ErrorRequestHandler, NextFunction, Request, Reque
 import http from 'http';
 import { Router } from '../lib/web';
 import config from '../config';
-import { HttpError, NotFoundError } from '../lib/http';
+import { DefaultErrorAttributes, HttpError, InternalServerError, NotFoundError } from '../lib/http';
 
 
 interface IRouteOptions {
@@ -84,7 +84,13 @@ export default class Server {
   }
 
   private static errorHandler(err: Error | HttpError, req: Request, res: Response, next: NextFunction) {
-    // @ts-ignore
-    return res.status(err.status || 500).json(err);
+    if ('status' in err) {
+      return res.status(err.status).json(DefaultErrorAttributes.from(err));
+    } else {
+
+    }
+
+    const httpError = new InternalServerError(err, req);
+    return res.status(httpError.status).json(DefaultErrorAttributes.from(httpError));
   }
 }

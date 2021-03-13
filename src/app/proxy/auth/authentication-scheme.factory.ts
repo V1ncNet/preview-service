@@ -2,7 +2,7 @@ import { AuthenticationScheme } from './authentication-scheme';
 import { BasicAuthentication, BasicAuthenticationConfiguration } from './basic-authentication';
 import { BearerAuthentication, BearerAuthenticationConfiguration } from './bearer-authentication';
 import { AuthConfigType } from './proxy-authentication.service';
-
+import { NotImplemented } from '../../../lib/http';
 
 export class AuthenticationSchemeFactory {
 
@@ -17,7 +17,8 @@ export class AuthenticationSchemeFactory {
         return (configs as BearerAuthenticationConfiguration[])
           .map(config => new BearerAuthentication(config));
       default:
-        throw new Error('Authentication scheme could not be determined');
+        // TODO: Evaluate on startup
+        throw new NotImplemented('Authentication scheme could not be determined');
     }
   }
 }

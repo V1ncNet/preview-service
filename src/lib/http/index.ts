@@ -4,3 +4,4 @@ export * from './error-attributes';
 export * from './http-error';
 export * from './internal-server-error';
 export * from './not-found-error';
+export * from './not-implemented';

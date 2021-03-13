@@ -13,8 +13,7 @@ export default class PreviewController extends Controller {
     const url: string = String(req.query.url);
 
     if (typeof req.query.url !== 'string' || !url) {
-      const err = new Error('Request param \'url\' must be provided');
-      res.status(400).send(new BadRequest(err, req));
+      throw new BadRequest('Request param \'url\' must be provided', req);
     }
 
     const proxyPath = uriResolver.resolve(url);
