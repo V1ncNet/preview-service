@@ -1,0 +1,27 @@
+{
+  "port": 3000,
+  "server": {
+    "contextPath": "/viewer"
+  },
+  "resources": {
+    "pdf": {
+      "viewer": {
+        "uri": "/r/pdfjs/build/minified/web/viewer.html",
+        "options": {}
+      }
+    }
+  },
+  "proxy": {
+    "auth": {
+      "basic": [
+        {
+          "hostname": "webdav",
+          "port": "80",
+          "username": "john",
+          "password": "password1234"
+        }
+      ]
+    }
+  },
+  "environment": "development"
+}

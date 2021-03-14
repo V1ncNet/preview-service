@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  viewer:
+    image: vinado/pdf.js-viewer
+    build:
+      context: ../
+    volumes:
+      - ./viewer/config.json:/opt/pdf.js-service/config.json
+
+  webdav:
+    image: donn/docker-alpine-webdav
+    environment:
+      USERNAME: john
+      PASSWORD: password1234
+    volumes:
+      - ./webdav:/var/webdav
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/server.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/html:/usr/share/nginx/html

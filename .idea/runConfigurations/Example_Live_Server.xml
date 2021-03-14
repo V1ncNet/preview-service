@@ -1,5 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Example Live Server" type="JavascriptDebugType" uri="http://localhost:63342/pdf-viewer/examples/index.html" useBuiltInWebServerPort="true">
+  <configuration default="false" name="Example Live Server" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="example/docker-compose.yml" />
+      </settings>
+    </deployment>
     <method v="2" />
   </configuration>
 </component>
