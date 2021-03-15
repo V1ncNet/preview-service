@@ -7,6 +7,7 @@ services:
       context: ../
     volumes:
       - ./viewer/config.json:/opt/pdf.js-service/config.json
+      - ./webdav:/var/webdav
 
   webdav:
     image: donn/docker-alpine-webdav
