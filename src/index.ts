@@ -8,10 +8,12 @@ import path from 'path';
 import { CorsUriResolver } from './app/proxy';
 import { ViewerResources } from './app/preview';
 import { ProxyAuthenticationService } from './app/proxy/auth';
+import { ProxyFactory } from './app/proxy/proxy.factory';
 
 export const uriResolver = new CorsUriResolver();
 export const viewerResources = new ViewerResources();
 export const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
+export const proxyFactory = new ProxyFactory();
 
 (async () => {
   const server = await Server.getDefault();

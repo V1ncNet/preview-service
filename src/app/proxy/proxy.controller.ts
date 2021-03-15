@@ -1,11 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-import http, { IncomingMessage } from 'http';
-import https from 'https';
+import { NextFunction, Request, Response } from 'express';
 import { controller, get } from '../../lib/web/bind/annotations';
 import { Controller } from '../../lib/web';
 import { PROXY_ENDPOINT } from '../../config/endpoints';
-import { proxyAuthenticationService } from '../../index';
 import { atob, btoa } from '../../lib/utils';
+import { proxyFactory } from '../../index';
 import { BadGateway } from '../../lib/http';
 
 @controller(PROXY_ENDPOINT)
@@ -21,39 +19,13 @@ export default class ProxyController extends Controller {
       return res.status(404);
     }
 
-    const resourceHeaders = proxyAuthenticationService.authenticate(url);
-    resourceHeaders.range = req.headers.range || [];
-
-    (url.protocol === 'http:' ? http : https).get(url, { headers: resourceHeaders }, (pRes: IncomingMessage) => {
-      if (pRes.statusCode != 200) {
-        res.status(pRes.statusCode || 500);
-        pRes.resume();
-        return res.end();
+    const proxy = proxyFactory.create(url);
+    proxy.proxy(url, req, res, err => {
+      if (err) {
+        next(new BadGateway(err));
       }
-
-      const { headers: incomingHeaders } = pRes;
-      const headers = Object.entries(incomingHeaders);
-      headers.forEach(entry => {
-        const { 0: key, 1: value } = entry;
-        if (value) {
-          res.setHeader(key, value);
-        }
-      });
-
-      pRes.on('data', chunk => {
-        res.write(chunk);
-      });
-
-      pRes.on('close', () => {
-        res.end();
-      });
-
-      pRes.on('end', () => {
-        res.end();
-      });
-    }).on('error', (err: Error) => {
-      next(new BadGateway(err));
-    }).end();
+      res.end();
+    });
   }
 
   public static proxy(url: string): string {
