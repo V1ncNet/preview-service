@@ -20,7 +20,7 @@ export class BasicAuthentication extends AuthenticationScheme {
   constructor(private config: BasicAuthenticationConfiguration) {
     super();
     this._hostname = config.hostname;
-    this._port = config.port;
+    this._port = config.port || '-1';
   }
 
   get hostname(): string {

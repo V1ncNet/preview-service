@@ -14,7 +14,25 @@ export abstract class AuthenticationScheme {
   }
 
   applies(url: URL): boolean {
-    return url.hostname === this.hostname && url.port === this.port;
+    return this.testHostname(url) && this.testPort(url);
+  }
+
+  protected testHostname(url: URL) {
+    return url.hostname === this.hostname;
+  }
+
+  protected testPort(url: URL) {
+    const { protocol } = url;
+
+    if ((protocol === 'http:' || protocol === 'https:') && this.port === '-1') {
+      return true;
+    } else if (protocol === 'http:' && this.port === '80') {
+      return true;
+    } else if (protocol === 'https:' && this.port === '443') {
+      return true;
+    }
+
+    return url.port === this.port;
   }
 
   protected abstract extend(headers: OutgoingHttpHeaders): void;
