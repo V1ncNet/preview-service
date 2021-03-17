@@ -16,7 +16,8 @@ export default class ProxyController extends Controller {
       const decoded = atob(req.params.url);
       url = new URL(decoded);
     } catch (e) {
-      return res.status(404);
+      res.status(404);
+      return res.end();
     }
 
     const proxy = proxyFactory.create(url);
