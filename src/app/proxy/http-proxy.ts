@@ -7,7 +7,7 @@ export class HttpProxy implements Proxy {
 
   constructor(private get: (url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void) => ClientRequest) { }
 
-  proxy(url: URL, req: Request, res: Response, error: (err: Error) => void): void {
+  proxy(url: URL, req: Request, res: Response, error: (err?: Error) => void): void {
     const resourceHeaders = proxyAuthenticationService.authenticate(url);
     resourceHeaders.range = req.headers.range || [];
 
