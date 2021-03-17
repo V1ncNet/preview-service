@@ -2,7 +2,7 @@ version: '3'
 
 services:
   viewer:
-    image: vinado/pdf.js-viewer
+    image: vinado/pdf.js-service
     build:
       context: ../
     volumes:
