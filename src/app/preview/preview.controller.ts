@@ -20,4 +20,16 @@ export default class PreviewController extends Controller {
     const viewerUrl = viewerResources.getRedirection(proxyPath);
     return res.redirect(viewerUrl);
   }
+
+  @get('/native')
+  native(req: Request, res: Response) {
+    const url: string = String(req.query.url);
+
+    if (typeof req.query.url !== 'string' || !url) {
+      throw new BadRequest('Required parameter \'url\' is not present', req);
+    }
+
+    const proxyPath = uriResolver.resolve(url);
+    return res.redirect(proxyPath);
+  }
 }
