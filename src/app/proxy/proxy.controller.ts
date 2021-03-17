@@ -4,7 +4,7 @@ import { Controller } from '../../lib/web';
 import { PROXY_ENDPOINT } from '../../config/endpoints';
 import { atob, btoa } from '../../lib/utils';
 import { proxyFactory } from '../../index';
-import { BadGateway } from '../../lib/http';
+import { HttpError, BadGateway } from '../../lib/http';
 
 @controller(PROXY_ENDPOINT)
 export default class ProxyController extends Controller {
@@ -23,8 +23,13 @@ export default class ProxyController extends Controller {
     const proxy = proxyFactory.create(url);
     proxy.proxy(url, req, res, err => {
       if (err) {
-        next(new BadGateway(err));
+        if (err instanceof HttpError) {
+          next(err);
+        } else {
+          next(new BadGateway(err));
+        }
       }
+
       res.end();
     });
   }
