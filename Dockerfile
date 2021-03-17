@@ -25,14 +25,14 @@ FROM node:lts-alpine AS viewer-builder
 
 WORKDIR                    /usr/src/app
 
-COPY package*.json         .
+COPY package*.json         ./
 
 RUN npm install --silent
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-COPY . .
+COPY . ./
 
 RUN npm run build
 
