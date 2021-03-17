@@ -1,14 +1,13 @@
 {
-  "name": "pdf-viewer",
+  "name": "pdf.js-service",
   "version": "0.0.1",
-  "description": "pdf-viewer initialised with create-express-typescript-application.",
+  "description": "µ-service that utilizes PDF.js to display PDF files",
   "license": "MIT",
   "main": "src/index",
   "scripts": {
     "build": "tsc -p .",
     "start": "node dist/index.js",
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon"
   },
   "nodemonConfig": {
     "watch": [
@@ -23,7 +22,9 @@
   },
   "keywords": [
     "express",
-    "typescript"
+    "typescript",
+    "pdf.js",
+    "proxy"
   ],
   "devDependencies": {
     "@types/cors": "^2.8.9",
