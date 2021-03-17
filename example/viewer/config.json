@@ -1,7 +1,8 @@
 {
   "port": 3000,
   "server": {
-    "contextPath": "/viewer"
+    "contextPath": "/viewer",
+    "storageRoot": "/var/webdav"
   },
   "resources": {
     "pdf": {

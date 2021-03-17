@@ -22,3 +22,4 @@ dist/
 example/
 .editorconfig
 config.json
+storage/
