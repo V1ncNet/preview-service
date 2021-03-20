@@ -7,17 +7,21 @@ import { FileProxy } from './file-proxy';
 
 export class ProxyFactory {
 
+  private readonly proxies: Record<string, () => Proxy> = { };
+
+  constructor() {
+    this.proxies['http:'] = () => new HttpProxy(http.get);
+    this.proxies['https:'] = () => new HttpProxy(https.get);
+    this.proxies['file:'] = () => new FileProxy();
+  }
+
   create(url: URL): Proxy {
     const protocol = url.protocol;
-    switch (protocol) {
-      case 'http:':
-        return new HttpProxy(http.get);
-      case 'https:':
-        return new HttpProxy(https.get);
-      case 'file:':
-        return new FileProxy();
-      default:
-        throw new NotImplemented(`Protocol ${protocol} is not supported`);
+    const proxy = this.proxies[protocol].call(this);
+    if (!proxy) {
+      throw new NotImplemented(`Protocol ${protocol} is not supported`);
     }
+
+    return proxy;
   }
 }

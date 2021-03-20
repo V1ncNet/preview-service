@@ -6,19 +6,22 @@ import { NotImplemented } from '../../../lib/http';
 
 export class AuthenticationSchemeFactory {
 
+  private readonly schemes: Record<string, (configs: AuthConfigType) => AuthenticationScheme[]> = { };
+
+  constructor() {
+    this.schemes['basic'] = (configs) => (configs as BasicAuthenticationConfiguration[])
+      .map(config => new BasicAuthentication(config));
+    this.schemes['bearer'] = (configs) => (configs as BearerAuthenticationConfiguration[])
+      .map(config => new BearerAuthentication(config));
+  }
+
   create(dict: [scheme: string, configs: AuthConfigType]): AuthenticationScheme[] {
     const { 0: scheme, 1: configs } = dict;
-
-    switch (scheme) {
-      case 'basic':
-        return (configs as BasicAuthenticationConfiguration[])
-          .map(config => new BasicAuthentication(config));
-      case 'bearer':
-        return (configs as BearerAuthenticationConfiguration[])
-          .map(config => new BearerAuthentication(config));
-      default:
-        // TODO: Evaluate on startup
-        throw new NotImplemented('Authentication scheme is not supported');
+    const authenticationSchemes = this.schemes[scheme].call(this, configs) || [];
+    if (0 == authenticationSchemes.length) {
+      throw new NotImplemented('Authentication scheme is not supported');
     }
+
+    return authenticationSchemes;
   }
 }
