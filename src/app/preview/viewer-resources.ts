@@ -1,6 +1,5 @@
 import config from '../../config';
 
-
 export class ViewerResources {
 
   getRedirection(documentUri: string): string {

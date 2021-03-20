@@ -1,7 +1,6 @@
 import config from '../../config';
 import ProxyController from './proxy.controller';
 
-
 export class CorsUriResolver {
 
   resolve(documentUri: string): string {

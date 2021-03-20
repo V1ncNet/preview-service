@@ -4,7 +4,6 @@ import { Router } from '../lib/web';
 import config from '../config';
 import { DefaultErrorAttributes, HttpError, InternalServerError, NotFoundError } from '../lib/http';
 
-
 interface IRouteOptions {
   notFoundCallback?: RequestHandler;
   errorHandler?: ErrorRequestHandler;
@@ -56,7 +55,7 @@ export default class Server {
     return new Server(router);
   }
 
-  private route({ notFoundCallback = Server.notFound, errorHandler = Server.errorHandler }: IRouteOptions = {}): void {
+  private route({ notFoundCallback = Server.notFound, errorHandler = Server.errorHandler }: IRouteOptions = { }): void {
     this._app.use(this._middleware);
     this._router.route(this._app);
 

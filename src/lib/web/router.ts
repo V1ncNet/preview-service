@@ -3,7 +3,6 @@ import { ControllerClass, Route } from '../web';
 import controllers from '../../app';
 import config from '../../config';
 
-
 export class Router {
 
   constructor(private _controllers: ControllerClass[]) { }
