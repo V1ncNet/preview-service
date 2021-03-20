@@ -20,7 +20,7 @@ export default class ProxyController extends Controller {
       return res.end();
     }
 
-    const proxy = proxyFactory.create(url);
+    const proxy = proxyFactory.from(url);
     proxy.proxy(url, req, res, err => {
       if (err) {
         if (err instanceof HttpError) {

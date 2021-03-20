@@ -15,7 +15,7 @@ export class ProxyFactory {
     this.proxies['file:'] = () => new FileProxy();
   }
 
-  create(url: URL): Proxy {
+  from(url: URL): Proxy {
     const protocol = url.protocol;
     const proxy = this.proxies[protocol].call(this);
     if (!proxy) {

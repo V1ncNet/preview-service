@@ -23,7 +23,7 @@ export class ProxyAuthenticationService {
 
   authenticate(resource: URL): OutgoingHttpHeaders {
     const headers: OutgoingHttpHeaders = Object.entries(this.config)
-      .map(dict => this.factory.create(dict))
+      .map(dict => this.factory.from(dict))
       .reduce((flat, value) => flat.concat(value), [])
       .filter(scheme => scheme.applies(resource))
       .map(scheme => scheme.create())[0];

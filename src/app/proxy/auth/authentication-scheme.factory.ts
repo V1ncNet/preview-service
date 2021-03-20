@@ -15,7 +15,7 @@ export class AuthenticationSchemeFactory {
       .map(config => new BearerAuthentication(config));
   }
 
-  create(dict: [scheme: string, configs: AuthConfigType]): AuthenticationScheme[] {
+  from(dict: [scheme: string, configs: AuthConfigType]): AuthenticationScheme[] {
     const { 0: scheme, 1: configs } = dict;
     const authenticationSchemes = this.schemes[scheme].call(this, configs) || [];
     if (0 == authenticationSchemes.length) {
