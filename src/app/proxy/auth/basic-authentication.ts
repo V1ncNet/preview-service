@@ -1,16 +1,8 @@
 import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationScheme } from './authentication-scheme';
-import { ResourceLocation } from './proxy-authentication.service';
 import { btoa } from '../../../lib/utils';
 import { InternalServerError } from '../../../lib/http';
-
-export interface UserPass {
-  username?: string;
-  password?: string;
-  basic_credentials?: string;
-}
-
-export interface BasicAuthenticationConfiguration extends ResourceLocation, UserPass { }
+import { BasicAuthenticationConfiguration } from './basic-authentication-configuration';
 
 export class BasicAuthentication extends AuthenticationScheme {
 

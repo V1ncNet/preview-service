@@ -1,12 +1,14 @@
 import { AuthenticationScheme } from './authentication-scheme';
-import { BasicAuthentication, BasicAuthenticationConfiguration } from './basic-authentication';
-import { BearerAuthentication, BearerAuthenticationConfiguration } from './bearer-authentication';
-import { AuthConfigType } from './proxy-authentication.service';
+import { BasicAuthentication } from './basic-authentication';
+import { BearerAuthentication } from './bearer-authentication';
+import { BearerAuthenticationConfiguration } from './bearer-authentication-configuration';
+import { BasicAuthenticationConfiguration } from './basic-authentication-configuration';
+import { AuthConfig } from './auth-config';
 import { NotImplemented } from '../../../lib/http';
 
 export class AuthenticationSchemeFactory {
 
-  private readonly schemes: Record<string, (configs: AuthConfigType) => AuthenticationScheme[]> = { };
+  private readonly schemes: Record<string, (configs: AuthConfig) => AuthenticationScheme[]> = { };
 
   constructor() {
     this.schemes['basic'] = (configs) => (configs as BasicAuthenticationConfiguration[])
@@ -15,7 +17,7 @@ export class AuthenticationSchemeFactory {
       .map(config => new BearerAuthentication(config));
   }
 
-  from(dict: [scheme: string, configs: AuthConfigType]): AuthenticationScheme[] {
+  from(dict: [scheme: string, configs: AuthConfig]): AuthenticationScheme[] {
     const { 0: scheme, 1: configs } = dict;
     const authenticationSchemes = this.schemes[scheme].call(this, configs) || [];
     if (0 == authenticationSchemes.length) {

@@ -1,21 +1,12 @@
 import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationSchemeFactory } from './authentication-scheme.factory';
-import { BasicAuthenticationConfiguration } from './basic-authentication';
-import { BearerAuthenticationConfiguration } from './bearer-authentication';
-
-
-export interface ResourceLocation {
-  hostname: string;
-  port: number | string;
-}
-
-export type AuthConfigType = BasicAuthenticationConfiguration[] | BearerAuthenticationConfiguration[];
+import { AuthConfig } from './auth-config';
 
 export class ProxyAuthenticationService {
 
   private factory: AuthenticationSchemeFactory = new AuthenticationSchemeFactory();
 
-  constructor(private config: Record<string, AuthConfigType>) { }
+  constructor(private config: Record<string, AuthConfig>) { }
 
   authenticate(resource: URL): OutgoingHttpHeaders {
     const headers: OutgoingHttpHeaders = Object.entries(this.config)

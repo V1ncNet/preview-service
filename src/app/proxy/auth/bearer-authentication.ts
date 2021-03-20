@@ -1,13 +1,6 @@
 import { OutgoingHttpHeaders } from 'http';
 import { AuthenticationScheme } from './authentication-scheme';
-import { ResourceLocation } from './proxy-authentication.service';
-
-
-export interface AccessToken {
-  access_token: string;
-}
-
-export interface BearerAuthenticationConfiguration extends ResourceLocation, AccessToken { }
+import { BearerAuthenticationConfiguration } from './bearer-authentication-configuration';
 
 export class BearerAuthentication extends AuthenticationScheme {
 

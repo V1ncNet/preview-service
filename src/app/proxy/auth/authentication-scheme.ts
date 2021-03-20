@@ -1,5 +1,5 @@
 import { OutgoingHttpHeaders } from 'http';
-import { ResourceLocation } from './proxy-authentication.service';
+import { ResourceLocation } from './resource-location';
 
 export abstract class AuthenticationScheme {
 
