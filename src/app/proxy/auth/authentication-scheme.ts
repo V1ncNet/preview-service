@@ -1,11 +1,17 @@
 import { OutgoingHttpHeaders } from 'http';
-
+import { ResourceUri } from './proxy-authentication.service';
 
 export abstract class AuthenticationScheme {
 
-  abstract get hostname(): string;
+  protected constructor(private config: ResourceUri) { }
 
-  abstract get port(): string;
+  protected get hostname(): string {
+    return this.config.hostname;
+  };
+
+  protected get port(): string {
+    return String(this.config.port || '-1');
+  };
 
   create(): OutgoingHttpHeaders {
     const headers: OutgoingHttpHeaders = { };

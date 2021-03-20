@@ -14,25 +14,12 @@ export interface BasicAuthenticationConfiguration extends ResourceUri, UserPass 
 
 export class BasicAuthentication extends AuthenticationScheme {
 
-  private readonly _hostname: string;
-  private readonly _port: number | string;
-
-  constructor(private config: BasicAuthenticationConfiguration) {
-    super();
-    this._hostname = config.hostname;
-    this._port = config.port || '-1';
-  }
-
-  get hostname(): string {
-    return this._hostname;
-  }
-
-  get port(): string {
-    return String(this._port);
+  constructor(private basicAuthConfig: BasicAuthenticationConfiguration) {
+    super(basicAuthConfig);
   }
 
   protected extend(headers: OutgoingHttpHeaders): void {
-    const { basic_credentials, username, password } = this.config;
+    const { basic_credentials, username, password } = this.basicAuthConfig;
 
     let basicAuth: string;
     if (basic_credentials) {
@@ -42,7 +29,7 @@ export class BasicAuthentication extends AuthenticationScheme {
       basicAuth = `Basic ${btoa(credentials)}`;
     } else {
       // TODO: Evaluate on startup
-      throw new InternalServerError(`Config doesn't supply authentication details for ${this._hostname}:${this._port}`);
+      throw new InternalServerError(`Config doesn't supply authentication details for ${this.hostname}:${this.port}`);
     }
 
     headers['Authorization'] = basicAuth;
