@@ -21,7 +21,8 @@
           "username": "john",
           "password": "password1234"
         }
-      ]
+      ],
+      "bearer": []
     }
   },
   "environment": "development"

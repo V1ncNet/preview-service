@@ -17,6 +17,7 @@ export = {
   proxy: {
     auth: {
       basic: [],
+      bearer: [],
     },
   },
 };
