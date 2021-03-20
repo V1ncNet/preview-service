@@ -4,7 +4,7 @@ import { BasicAuthenticationConfiguration } from './basic-authentication';
 import { BearerAuthenticationConfiguration } from './bearer-authentication';
 
 
-export interface ResourceUri {
+export interface ResourceLocation {
   hostname: string;
   port: number | string;
 }

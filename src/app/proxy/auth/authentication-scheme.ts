@@ -1,9 +1,9 @@
 import { OutgoingHttpHeaders } from 'http';
-import { ResourceUri } from './proxy-authentication.service';
+import { ResourceLocation } from './proxy-authentication.service';
 
 export abstract class AuthenticationScheme {
 
-  protected constructor(private config: ResourceUri) { }
+  protected constructor(private config: ResourceLocation) { }
 
   protected get hostname(): string {
     return this.config.hostname;
