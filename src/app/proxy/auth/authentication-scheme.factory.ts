@@ -19,7 +19,11 @@ export class AuthenticationSchemeFactory {
 
   from(dict: [scheme: string, configs: AuthConfig]): AuthenticationScheme[] {
     const { 0: scheme, 1: configs } = dict;
-    const authenticationSchemes = this.schemes[scheme].call(this, configs) || [];
+    if (0 == configs.length) {
+      return [];
+    }
+
+    const authenticationSchemes = this.schemes[scheme].call(this, configs);
     if (0 == authenticationSchemes.length) {
       throw new NotImplemented('Authentication scheme is not supported');
     }
