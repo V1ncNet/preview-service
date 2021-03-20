@@ -14,6 +14,7 @@ try {
 
 let config = require('./default');
 merge(config, fileConfig);
+merge(config, require('./environment'));
 
 config.environment = config.environment || process.env.NODE_ENV || 'development';
 process.env.NODE_ENV = config.environment;
