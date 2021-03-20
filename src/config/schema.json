@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "port": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "server": {
+      "type": "object",
+      "properties": {
+        "contextPath": {
+          "type": "string"
+        },
+        "storageRoot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contextPath",
+        "storageRoot"
+      ]
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "pdf": {
+          "type": "object",
+          "properties": {
+            "viewer": {
+              "type": "object",
+              "properties": {
+                "entrypoint": {
+                  "type": "string"
+                },
+                "options": {
+                  "type": "object",
+                  "additionalItems": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "entrypoint",
+                "options"
+              ]
+            }
+          },
+          "required": [
+            "viewer"
+          ]
+        }
+      },
+      "required": [
+        "pdf"
+      ]
+    },
+    "proxy": {
+      "type": "object",
+      "properties": {
+        "auth": {
+          "type": "object",
+          "properties": {
+            "basic": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "hostname": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": [
+                      "integer",
+                      "string"
+                    ]
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "hostname",
+                  "port",
+                  "username",
+                  "password"
+                ]
+              }
+            },
+            "bearer": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "hostname": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "string"
+                  },
+                  "access_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "hostname",
+                  "port",
+                  "access_token"
+                ]
+              }
+            }
+          },
+          "required": [
+            "basic",
+            "bearer"
+          ]
+        }
+      },
+      "required": [
+        "auth"
+      ]
+    },
+    "environment": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "port",
+    "server",
+    "resources",
+    "proxy",
+    "environment"
+  ]
+}
