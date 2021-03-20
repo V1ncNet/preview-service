@@ -4,7 +4,7 @@ export = {
   port: 3000,
   server: {
     contextPath: '',
-    storageRoot: path.join(__dirname, 'storage'),
+    storageRoot: path.join(process.cwd(), 'storage'),
   },
   resources: {
     pdf: {
