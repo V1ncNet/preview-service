@@ -9,7 +9,7 @@ export = {
   resources: {
     pdf: {
       viewer: {
-        uri: '/r/pdfjs/build/minified/web/viewer.html',
+        entrypoint: '/r/pdfjs/build/minified/web/viewer.html',
         options: {},
       },
     },
