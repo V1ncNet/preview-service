@@ -19,22 +19,21 @@ function bearerAuthConfigFrom(envValue: string | undefined, separator: string = 
   }
 
   return envValue.split(separator).map(connectionString => {
-    const codeIndex = connectionString.lastIndexOf('@');
-    const access_token = connectionString.substring(0, codeIndex);
+    const access_token = extractAccessToken(connectionString);
+    const hostname = extractHostname(connectionString);
+    const port = extractPort(connectionString);
 
-    const hostnameIndex = connectionString.lastIndexOf(':');
-    const hostname = connectionString.substring(codeIndex + 1, hostnameIndex);
-
-    const port = connectionString.substring(hostnameIndex + 1, connectionString.length);
-
-    const bearerAuth = {
+    return {
       hostname,
       port,
       access_token,
     } as BearerAuthenticationConfiguration;
-    console.log(bearerAuth);
-    return bearerAuth;
   });
+
+  function extractAccessToken(connectionString: string) {
+    const atIndex = connectionString.lastIndexOf('@');
+    return connectionString.substring(0, atIndex);
+  }
 }
 
 const basicAuthConfigFrom = (envValue: string | undefined, separator: string = '|', defaultValue: any[] = []) => {
@@ -43,30 +42,51 @@ const basicAuthConfigFrom = (envValue: string | undefined, separator: string = '
   }
 
   return envValue.split(separator).map(connectionString => {
-    const authIndex = connectionString.lastIndexOf('@');
-    const auth = connectionString.substring(0, authIndex);
+    const { username, password } = extractCredentials(connectionString);
+    const hostname = extractHostname(connectionString);
+    const port = extractPort(connectionString);
 
-    const usernameIndex = auth.lastIndexOf(':');
-    const username = auth.substring(0, usernameIndex);
-
-    const password = auth.substring(usernameIndex + 1, auth.length);
-
-
-    const hostnameIndex = connectionString.lastIndexOf(':');
-    const hostname = connectionString.substring(authIndex + 1, hostnameIndex);
-
-    const port = connectionString.substring(hostnameIndex + 1, connectionString.length);
-
-    const basicAuth = {
+    return {
       hostname,
       port,
       username,
       password,
     } as BasicAuthenticationConfiguration;
-    console.log(basicAuth);
-    return basicAuth;
   });
+
+  function extractCredentials(connectionString: string) {
+    const userPass = extractUserPass(connectionString);
+    const username = extractUsername(userPass);
+    const password = extractPassword(userPass);
+    return { username, password };
+  }
+
+  function extractUserPass(connectionString: string) {
+    const atIndex = connectionString.lastIndexOf('@');
+    return connectionString.substring(0, atIndex);
+  }
+
+  function extractUsername(userPass: string) {
+    const colonIndex = userPass.lastIndexOf(':');
+    return userPass.substring(0, colonIndex);
+  }
+
+  function extractPassword(userPass: string) {
+    const colonIndex = userPass.lastIndexOf(':');
+    return userPass.substring(colonIndex + 1, userPass.length);
+  }
 };
+
+function extractHostname(connectionString: string) {
+  const atIndex = connectionString.lastIndexOf('@');
+  const colonIndex = connectionString.lastIndexOf(':');
+  return connectionString.substring(atIndex + 1, colonIndex);
+}
+
+function extractPort(connectionString: string) {
+  const colonIndex = connectionString.lastIndexOf(':');
+  return connectionString.substring(colonIndex + 1, connectionString.length);
+}
 
 export = {
   port: process.env.PORT,
