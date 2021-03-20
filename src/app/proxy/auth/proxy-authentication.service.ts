@@ -11,15 +11,11 @@ export interface ResourceUri {
 
 export type AuthConfigType = BasicAuthenticationConfiguration[] | BearerAuthenticationConfiguration[];
 
-export interface AuthenticationConfig {
-  [scheme: string]: AuthConfigType;
-}
-
 export class ProxyAuthenticationService {
 
   private factory: AuthenticationSchemeFactory = new AuthenticationSchemeFactory();
 
-  constructor(private config: AuthenticationConfig) { }
+  constructor(private config: Record<string, AuthConfigType>) { }
 
   authenticate(resource: URL): OutgoingHttpHeaders {
     const headers: OutgoingHttpHeaders = Object.entries(this.config)
