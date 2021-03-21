@@ -10,7 +10,7 @@ export = {
     pdf: {
       viewer: {
         entrypoint: process.env.VIEWER_PDF_ENTRYPOINT,
-        options: dictionaryFrom(process.env.VIEWER_PDF_OPTIONS),
+        options: dictionaryFrom(process.env.VIEWER_PDF_OPTIONS, '&'),
       },
     },
   },
