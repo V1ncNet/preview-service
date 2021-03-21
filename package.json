@@ -2,6 +2,7 @@
   "name": "pdf-viewer",
   "version": "0.0.1",
   "description": "pdf-viewer initialised with create-express-typescript-application.",
+  "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
