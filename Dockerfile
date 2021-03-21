@@ -39,7 +39,7 @@ RUN npm run build
 
 FROM node:lts-alpine AS server-builder
 
-WORKDIR /opt/pdf.js-service
+WORKDIR /opt/viewer
 
 COPY --from=viewer-builder /usr/src/app/package*.json ./
 

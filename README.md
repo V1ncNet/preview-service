@@ -1,5 +1,5 @@
 :page_facing_up: Resource Viewer Microservice
-========================================
+=============================================
 
 A microservice to preview resources and embed them in your web application.
 
@@ -98,6 +98,39 @@ listed automatically. For VS Code there is a debug launch configurations in the
 `.vscode/` directory.
 
 
+Configuration
+-------------
+
+The project provides a few defaults to get the service to run. These defaults
+are getting dumped into the `config.json` file each time the service starts as
+mentioned above. However, the service loads configurations hierarchical. As soon
+as the config file exists and is valid configuration is loaded and merged into
+the default values. In addition, the service can be fully configured using
+environment variables. They'll take the second highest order in the hierarchy,
+if present. The Highest order is taken by Docker secrets.
+
+1. Defaults
+2. `config.json`
+3. Environment Variables
+4. Docker Secrets
+
+---
+
+| Environment Variable  | config.json                       | Docker Secret                         | Data Type             | Default Value                             | Example Value                      | Description                                                                                                                 |
+| --------------------- | --------------------------------- | ------------------------------------- | --------------------- | ----------------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| PORT                  | _port_                            |                                       | _`string`_,_`number`_ | `3000`                                    | `3000`                             | The port on which the service will be accessed.                                                                             |
+| NODE_ENV              | _environment_                     |                                       | _`string`_            | `development`                             | `development`,`production`         | Affects the logging behavior. `production` is less verbose.                                                                 |
+| SERVER_CONTEXT_PATH   | _server.contextPath_              |                                       | _`string`_            |                                           | `/viewer`                          | The prefix path the service will be served on.                                                                              |
+| SERVER_STORAGE_ROOT   | _server.storageRoot_              |                                       | _`string`_            | `${PWD}/storage`                          | `/var/webdav`                      | The path to your stored documents.                                                                                          |
+| VIEWER_PDF_ENTRYPOINT | _resources.pdf.viewer.entrypoint_ |                                       | _`string`_            | `/r/pdfjs/build/minified/web/viewer.html` | `/r/custom/index.html`             | The path from which the PDF.js viewer is mounted.                                                                           |
+| VIEWER_PDF_OPTIONS    | _resources.pdf.viewer.options_    |                                       | _`string`_            |                                           | `webgl=true&locale=en_US`          | Query string to configure the PDF.js viewer.                                                                                |
+| PROXY_AUTH_BASIC      | _proxy.auth.basic_                | `/var/run/secretes/proxy_auth_basic`  | _`string`_            |                                           | `john:password1234@localhost:8080` | A `|`-separated URI-like connection string which authenticates the proxy to load secured resources from the given location. |
+| PROXY_AUTH_BEARER     | _proxy.auth.bearer_               | `/var/run/secretes/proxy_auth_bearer` | _`string`_            |                                           | `AbCdEf123456@localhost:8081`      | A `|`-separated URI-like connection string which authenticates the proxy to load secured resources from the given location. |
+
+**Note:** The value in VIEWER_PDF_OPTIONS has no effect unless you're using a
+custom PDF.js build.
+
+
 Deployment
 ----------
 
@@ -111,3 +144,28 @@ proxy that takes care of authentication.
 
 It's recommended to configure the reverse proxy to serve the service on a
 context path. Consult the [example](/example/README.md) for more information.
+
+### Docker
+
+The project provides a Dockerfile as well as an example how to integrate the
+service into a stack. A prebuilt image is available at
+[Docker Hub](https://hub.docker.com/r/vinado/preview-service).
+
+The easiest way to spin up the service with Docker is using Docker Compose:
+
+```yaml
+version: '3'
+service:
+  viewer:
+    image: vinado/preview-service
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config.json:/opt/viewer/config.json
+```
+
+
+License
+-------
+
+MIT - [Vinado](https://vinado.de) - Built with :heart: in Dresden

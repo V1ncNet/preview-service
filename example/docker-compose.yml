@@ -2,11 +2,11 @@ version: '3'
 
 services:
   viewer:
-    image: vinado/pdf.js-service
+    image: vinado/preview-service
     build:
       context: ../
     volumes:
-      - ./viewer/config.json:/opt/pdf.js-service/config.json
+      - ./viewer/config.json:/opt/viewer/config.json
       - ./webdav:/var/webdav
 
   webdav:

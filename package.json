@@ -1,31 +1,37 @@
 {
-  "name": "pdf.js-service",
+  "name": "preview-service",
   "version": "0.0.1",
-  "description": "µ-service that utilizes PDF.js to display PDF files",
+  "description": "µ-service to preview resources and embed them in your web application",
+  "keywords": [
+    "express",
+    "typescript",
+    "pdf.js",
+    "proxy",
+    "microservice",
+    "iframe",
+    "pdf"
+  ],
+  "homepage": "https://github.com/V1ncNet/preview-service",
   "license": "MIT",
+  "author": "Vincent Nadoll <vincent.nadoll@gmail.com> (https://vinado.de)",
   "main": "src/index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/V1ncNet/preview-service.git"
+  },
   "scripts": {
     "build": "tsc -p .",
     "start": "node dist/index.js",
     "dev": "nodemon"
   },
-  "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
-    "ext": "js, ts, json",
-    "ignore": [
-      "src/r/",
-      "src/**/*.spec.ts"
-    ],
-    "exec": "ts-node ./src/index.ts"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "helmet": "^4.3.1",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0"
   },
-  "keywords": [
-    "express",
-    "typescript",
-    "pdf.js",
-    "proxy"
-  ],
   "devDependencies": {
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
@@ -39,12 +45,16 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "helmet": "^4.3.1",
-    "lodash": "^4.17.21",
-    "morgan": "^1.10.0"
+  "private": true,
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "js, ts",
+    "ignore": [
+      "src/r/",
+      "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node ./src/index.ts"
   }
 }
