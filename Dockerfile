@@ -48,6 +48,7 @@ ENV NODE_ENV=$NODE_ENV
 RUN npm install --silent \
  && npm prune --production \
  && npm cache clean --force
+RUN mkdir                                                 ./storage
 
 COPY --from=pdfjs-builder  /usr/src/pdf.js/build/minified ./dist/r/pdfjs/build/minified/
 COPY --from=viewer-builder /usr/src/app/dist              ./dist
@@ -55,5 +56,6 @@ COPY --from=viewer-builder /usr/src/app/dist              ./dist
 ARG PORT=3000
 ENV PORT=$PORT
 
+VOLUME [ "/opt/viewer" ]
 EXPOSE ${PORT}
 CMD ["npm", "start"]
