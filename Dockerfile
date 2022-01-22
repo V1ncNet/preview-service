@@ -58,4 +58,4 @@ ENV PORT=$PORT
 
 VOLUME [ "/opt/viewer" ]
 EXPOSE ${PORT}
-CMD ["npm", "start"]
+CMD [ "node", "dist/index.js" ]
