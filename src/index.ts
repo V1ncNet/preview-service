@@ -15,9 +15,8 @@ export const viewerResources = new ViewerResources();
 export const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
 export const proxyFactory = new ProxyFactory();
 
-(async () => {
-  const server = await Server.getDefault();
 
+Server.getDefault().then(server => {
   server.app.set('json spaces', 2);
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
@@ -34,4 +33,4 @@ export const proxyFactory = new ProxyFactory();
   server.app.use(config.server.contextPath + '/r', express.static(path.join(__dirname, 'r')));
 
   server.start();
-})();
+});
