@@ -66,7 +66,7 @@ export default class Server {
   private listen(): void {
     this._server.listen(this._port, () => {
       this._running = true;
-      console.log(`Express started on port: ${this._port} with context path '${config.server.contextPath}'`);
+      console.log(`Express started on port ${this._port} at context path '${config.server.contextPath}' 🔥`);
     });
   }
 
