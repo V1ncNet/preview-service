@@ -15,6 +15,10 @@ export const viewerResources = new ViewerResources();
 export const proxyAuthenticationService = new ProxyAuthenticationService(config.proxy.auth);
 export const proxyFactory = new ProxyFactory();
 
+const signals: { [key: string]: number } = {
+  'SIGINT': 2,
+  'SIGTERM': 15
+}
 
 Server.getDefault().then(server => {
   server.app.set('json spaces', 2);
@@ -33,4 +37,10 @@ Server.getDefault().then(server => {
   server.app.use(config.server.contextPath + '/r', express.static(path.join(__dirname, 'r')));
 
   server.start();
+
+  Object.keys(signals).forEach(signal => {
+    process.on(signal, () => {
+      server.shutdown(signal, signals[signal]);
+    })
+  });
 });

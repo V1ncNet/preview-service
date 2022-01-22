@@ -76,6 +76,14 @@ export default class Server {
     this.listen();
   }
 
+  public shutdown(signal: string, value: number): void {
+    this._server.close(() => {
+      console.debug(` Trapped signal ${signal}`);
+      console.log(`Server is shutting down. Bye 👋`);
+      process.exit(128 + value);
+    });
+  }
+
   private static notFound(req: Request, res: Response, next: NextFunction): void {
     if (res.status(404)) {
       return next(new NotFoundError(`Cannot ${req.method} ${req.path}`, req));
