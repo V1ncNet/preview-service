@@ -34,7 +34,7 @@ Build the minified version of the PDF.js generic viewer next:
 
 ```shell
 cd src/r/pdfjs
-npm install
+npm install --force
 npx gulp minified
 cd -
 ```

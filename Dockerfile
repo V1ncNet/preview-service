@@ -12,11 +12,11 @@ RUN apk --no-cache add \
 WORKDIR /usr/src/pdf.js
 
 ARG PDFJS_UPSTREAM=https://github.com/mozilla/pdf.js
-ARG PDFJS_REF=HEAD
+ARG PDFJS_REF=v3.3.122
 RUN git clone --recurse-submodules $PDFJS_UPSTREAM . \
  && git checkout $PDFJS_REF
 
-RUN npm install --silent
+RUN npm install --silent --force
 ENV NODE_ENV=production
 RUN npx gulp minified
 

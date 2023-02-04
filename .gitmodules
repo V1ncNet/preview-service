@@ -1,7 +1,8 @@
 [submodule "src/r/pdfjs"]
 	path = src/r/pdfjs
 	url = git://github.com/mozilla/pdf.js.git
-  branch = vundefined-8791-ga2ae56f39 # v2.12.313
+  branch = vundefined-10394-g562045607 # v3.3.122
+  # branch = vundefined-8791-ga2ae56f39 # v2.12.313
   # branch = vundefined-7069-gf2c7338b0 # v2.7.570
   # branch = vundefined-6152-g0974d6052 # v2.5.207
   # branch = vundefined-6499-g3be9c65f0 # v2.6.347
