@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS pdfjs-builder
+FROM node:18-alpine AS pdfjs-builder
 
 RUN apk --no-cache add \
       git \
@@ -21,7 +21,7 @@ ENV NODE_ENV=production
 RUN npx gulp minified
 
 
-FROM node:lts-alpine AS viewer-builder
+FROM node:18-alpine AS viewer-builder
 
 WORKDIR                    /usr/src/app
 
@@ -37,7 +37,7 @@ COPY . ./
 RUN npm run build
 
 
-FROM node:lts-alpine AS server-builder
+FROM node:18-alpine AS server-builder
 
 WORKDIR /opt/viewer
 
