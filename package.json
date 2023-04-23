@@ -1,6 +1,6 @@
 {
   "name": "preview-service",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "µ-service to preview resources and embed them in your web application",
   "keywords": [
     "express",
