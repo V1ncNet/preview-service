@@ -24,9 +24,9 @@ export class Router {
       // @ts-ignore
       const instance = new controller();
       instance.getRoutes().forEach((route: Route) => {
-        const { fnName, method, url, middleware } = route;
+        const { fnName, method, uri, middleware } = route;
         // @ts-ignore
-        app[method](config.server.contextPath + url, middleware, instance[fnName]);
+        app[method](config.server.contextPath + uri, middleware, instance[fnName]);
       });
     });
   }

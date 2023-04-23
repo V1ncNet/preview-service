@@ -5,8 +5,8 @@ import config from '../../config';
 
 export class FileProxy implements Proxy {
 
-  proxy(url: URL, req: Request, res: Response, error: (err?: Error) => void): void {
-    const filePath = decodeURIComponent(url.pathname);
+  proxy(uri: URL, req: Request, res: Response, error: (err?: Error) => void): void {
+    const filePath = decodeURIComponent(uri.pathname);
     const storageRoot = config.server.storageRoot;
     const filename = path.normalize(filePath);
 

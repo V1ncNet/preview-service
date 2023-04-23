@@ -9,19 +9,19 @@ import { HttpError, BadGateway } from '../../lib/http';
 @controller(PROXY_ENDPOINT)
 export default class ProxyController extends Controller {
 
-  @get('/:url')
+  @get('/:uri')
   proxyByPath(req: Request, res: Response, next: NextFunction) {
-    let url: URL;
+    let uri: URL;
     try {
-      const decoded = atob(req.params.url);
-      url = new URL(decoded);
+      const decoded = atob(req.params.uri);
+      uri = new URL(decoded);
     } catch (e) {
       res.status(404);
       return res.end();
     }
 
-    const proxy = proxyFactory.from(url);
-    proxy.proxy(url, req, res, err => {
+    const proxy = proxyFactory.from(uri);
+    proxy.proxy(uri, req, res, err => {
       if (err) {
         if (err instanceof HttpError) {
           next(err);
@@ -34,12 +34,12 @@ export default class ProxyController extends Controller {
     });
   }
 
-  public static proxy(url: string): string {
-    const encoded = btoa(url);
-    return ProxyController.createProxyUrl(encoded);
+  public static proxy(uri: string): string {
+    const encoded = btoa(uri);
+    return ProxyController.createProxyUri(encoded);
   }
 
-  private static createProxyUrl(encodedUrl: string): string {
-    return `${PROXY_ENDPOINT}/${encodedUrl}`;
+  private static createProxyUri(encodedUri: string): string {
+    return `${PROXY_ENDPOINT}/${encodedUri}`;
   }
 }

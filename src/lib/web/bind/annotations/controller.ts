@@ -10,10 +10,10 @@ export const controller = (...args: (string | Function)[]) => {
       .filter(prop => prop.indexOf(PREFIX) === 0)
       .map(prop => {
         const { method, path, middleware: actionMiddleware } = proto[prop];
-        const url = `${ctrlPath}${path}`;
+        const uri = `${ctrlPath}${path}`;
         const middleware = ctrlMiddleware.concat(actionMiddleware);
         const fnName = prop.substring(PREFIX.length);
-        return { method: method === 'del' ? 'delete' : method, url, middleware, fnName };
+        return { method: method === 'del' ? 'delete' : method, uri, middleware, fnName };
       });
   };
 };

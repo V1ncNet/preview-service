@@ -10,26 +10,26 @@ export default class PreviewController extends Controller {
 
   @get('/pdf')
   pdf(req: Request, res: Response) {
-    const url: string = String(req.query.url);
+    const uri: string = String(req.query.uri);
 
-    if (typeof req.query.url !== 'string' || !url) {
-      throw new BadRequest('Required parameter \'url\' is not present', req);
+    if (typeof req.query.uri !== 'string' || !uri) {
+      throw new BadRequest('Required parameter \'uri\' is not present', req);
     }
 
-    const proxyPath = uriResolver.resolve(url);
-    const viewerUrl = viewerResources.getRedirection(proxyPath);
-    return res.redirect(viewerUrl);
+    const proxyPath = uriResolver.resolve(uri);
+    const viewerUri = viewerResources.getRedirection(proxyPath);
+    return res.redirect(viewerUri);
   }
 
   @get('/native')
   native(req: Request, res: Response) {
-    const url: string = String(req.query.url);
+    const uri: string = String(req.query.uri);
 
-    if (typeof req.query.url !== 'string' || !url) {
-      throw new BadRequest('Required parameter \'url\' is not present', req);
+    if (typeof req.query.uri !== 'string' || !uri) {
+      throw new BadRequest('Required parameter \'uri\' is not present', req);
     }
 
-    const proxyPath = uriResolver.resolve(url);
+    const proxyPath = uriResolver.resolve(uri);
     return res.redirect(proxyPath);
   }
 }

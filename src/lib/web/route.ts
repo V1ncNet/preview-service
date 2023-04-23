@@ -1,6 +1,6 @@
 export type Route = {
   method: string,
-  url: string,
+  uri: string,
   middleware: Function[],
   fnName: string,
 };

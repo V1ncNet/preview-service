@@ -46,9 +46,9 @@ Usage
 The service is supposed to be embedded in an `iframe`. Point the `src` attribute
 value to one of the preview endpoints.
 
-* `/preview/native?url=...` uses the browser default to display the resource
-  provided in the URL.
-* `/preview/pdf?url=...` uses PDF.js to display PDF documents.
+* `/preview/native?uri=...` uses the browser default to display the resource
+  provided in the URI.
+* `/preview/pdf?uri=...` uses PDF.js to display PDF documents.
 
 Currently, the resource proxy supports the schemes: `http`, `https` and `file`.
 The file proxy uses the `storage/` folder as root, but you can configure the

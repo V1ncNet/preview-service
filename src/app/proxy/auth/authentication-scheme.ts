@@ -19,16 +19,16 @@ export abstract class AuthenticationScheme {
     return headers;
   }
 
-  applies(url: URL): boolean {
-    return this.testHostname(url) && this.testPort(url);
+  applies(uri: URL): boolean {
+    return this.testHostname(uri) && this.testPort(uri);
   }
 
-  protected testHostname(url: URL) {
-    return url.hostname === this.hostname;
+  protected testHostname(uri: URL) {
+    return uri.hostname === this.hostname;
   }
 
-  protected testPort(url: URL) {
-    const { protocol } = url;
+  protected testPort(uri: URL) {
+    const { protocol } = uri;
 
     if ((protocol === 'http:' || protocol === 'https:') && this.port === '-1') {
       return true;
@@ -38,7 +38,7 @@ export abstract class AuthenticationScheme {
       return true;
     }
 
-    return url.port === this.port;
+    return uri.port === this.port;
   }
 
   protected abstract extend(headers: OutgoingHttpHeaders): void;

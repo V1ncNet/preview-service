@@ -15,8 +15,8 @@ export class ProxyFactory {
     this.proxies['file:'] = () => new FileProxy();
   }
 
-  from(url: URL): Proxy {
-    const protocol = url.protocol;
+  from(uri: URL): Proxy {
+    const protocol = uri.protocol;
     const proxy = this.proxies[protocol].call(this);
     if (!proxy) {
       throw new NotImplemented(`Protocol ${protocol} is not supported`);

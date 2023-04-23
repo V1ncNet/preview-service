@@ -5,13 +5,13 @@ import { proxyAuthenticationService } from '../../index';
 
 export class HttpProxy implements Proxy {
 
-  constructor(private get: (url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void) => ClientRequest) { }
+  constructor(private get: (uri: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void) => ClientRequest) { }
 
-  proxy(url: URL, req: Request, res: Response, error: (err?: Error) => void): void {
-    const resourceHeaders = proxyAuthenticationService.authenticate(url);
+  proxy(uri: URL, req: Request, res: Response, error: (err?: Error) => void): void {
+    const resourceHeaders = proxyAuthenticationService.authenticate(uri);
     resourceHeaders.range = req.headers.range || [];
 
-    this.get(url, { headers: resourceHeaders }, (pRes: IncomingMessage) => {
+    this.get(uri, { headers: resourceHeaders }, (pRes: IncomingMessage) => {
       if (pRes.statusCode != 200) {
         res.status(pRes.statusCode || 500);
         pRes.resume();
