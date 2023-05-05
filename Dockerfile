@@ -16,6 +16,7 @@ ARG PDFJS_REF=v3.3.122
 RUN git clone --recurse-submodules $PDFJS_UPSTREAM . \
  && git checkout $PDFJS_REF
 
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 RUN npm install --silent --force
 ENV NODE_ENV=production
 RUN npx gulp minified
