@@ -16,7 +16,7 @@ ARG PDFJS_REF=v3.3.122
 RUN git clone --depth 1 --recurse-submodules --branch $PDFJS_REF $PDFJS_UPSTREAM .
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
-RUN npm install --silent --force
+RUN npm install --force
 ENV NODE_ENV=production
 RUN npx gulp minified
 
@@ -27,7 +27,7 @@ WORKDIR                    /usr/src/app
 
 COPY package*.json         ./
 
-RUN npm install --silent
+RUN npm install
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
@@ -45,7 +45,7 @@ COPY --from=viewer-builder /usr/src/app/package*.json ./
 
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
-RUN npm install --silent \
+RUN npm install \
  && npm prune --production \
  && npm cache clean --force
 RUN mkdir                                                 ./storage
