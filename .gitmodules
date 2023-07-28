@@ -2,3 +2,4 @@
 	path = src/r/pdfjs
 	url = https://github.com/mozilla/pdf.js.git
   branch = vundefined-10655-gbe0f6ee08 # v3.5.141
+	shallow = true

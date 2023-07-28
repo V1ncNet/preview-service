@@ -13,8 +13,7 @@ WORKDIR /usr/src/pdf.js
 
 ARG PDFJS_UPSTREAM=https://github.com/mozilla/pdf.js
 ARG PDFJS_REF=v3.3.122
-RUN git clone --recurse-submodules $PDFJS_UPSTREAM . \
- && git checkout $PDFJS_REF
+RUN git clone --depth 1 --recurse-submodules --branch $PDFJS_REF $PDFJS_UPSTREAM .
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 RUN npm install --silent --force
